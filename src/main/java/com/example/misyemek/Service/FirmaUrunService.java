@@ -1,7 +1,7 @@
 package com.example.misyemek.Service;
 import com.example.misyemek.entity.FirmaUrun;
 import com.example.misyemek.repository.FirmaUrunRepository;
-import com.example.misyemek.repository.SiparişRepository;
+import com.example.misyemek.repository.SiparisRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class FirmaUrunService {
     private final FirmaUrunRepository repository;
-    private final SiparişRepository siparişRepository;
+    private final SiparisRepository siparisRepository;
 
-    public FirmaUrunService(FirmaUrunRepository repository, SiparişRepository siparişRepository) {
+    public FirmaUrunService(FirmaUrunRepository repository, SiparisRepository siparisRepository) {
         this.repository = repository;
-        this.siparişRepository = siparişRepository;
+        this.siparisRepository = siparisRepository;
     }
 
     public List<FirmaUrun> urunFiyatFullGetir() {
@@ -49,7 +49,7 @@ public class FirmaUrunService {
     }
 
     public BigDecimal firmaUrunAylikKazanc(Long firmaId, int yil, int ay) {
-        return siparişRepository.firmaUrunAylikKazanc(firmaId, yil, ay);
+        return siparisRepository.firmaUrunAylikKazanc(firmaId, yil, ay);
     }
 
 }

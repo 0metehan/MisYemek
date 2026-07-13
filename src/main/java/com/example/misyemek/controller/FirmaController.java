@@ -3,12 +3,13 @@ package com.example.misyemek.controller;
 import com.example.misyemek.entity.Firma;
 import com.example.misyemek.Service.FirmaService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/firma")
+@RequestMapping("/Firma")
 public class FirmaController {
 
     private final FirmaService service;
@@ -17,17 +18,19 @@ public class FirmaController {
         this.service = service;
     }
 
-    @GetMapping("/getir")
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/Getir")
     public List<Firma> firmaFullGetir() {
         return service.firmaFullGetir();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{firmaId}")
     public Firma firmaGetir(@PathVariable Long firmaId){
         return service.firmaGetir(firmaId);
     }
 
-    @PostMapping("/kaydet")
+    @PostMapping("/Kaydet")
     public Firma firmaEkle(@Valid @RequestBody Firma yeniFirma) {
         return service.firmaEkle(yeniFirma);
     }
@@ -37,7 +40,7 @@ public class FirmaController {
         return service.firmaGuncelle(firmaId, guncelUrun);
     }
 
-    @DeleteMapping("/sil/{firmaId}")
+    @DeleteMapping("/Sil/{firmaId}")
     public void firmaSil (@PathVariable Long firmaId){
         service.firmaSil(firmaId);
     }

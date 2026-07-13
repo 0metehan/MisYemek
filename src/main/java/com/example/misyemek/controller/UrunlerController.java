@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/urunler")
+@RequestMapping("/Urunler")
 public class UrunlerController {
     private final UrunlerService service;
 
@@ -17,7 +17,7 @@ public class UrunlerController {
         this.service = service;
     }
 
-    @GetMapping("/getir")
+    @GetMapping("/Getir")
     public List<Urunler> UrunFullGetir(){
         return service.UrunFullGetir();
     }
@@ -27,7 +27,7 @@ public class UrunlerController {
         return service.urunGetir(urunId);
     }
 
-    @PostMapping("/kaydet")
+    @PostMapping("/Kaydet")
     public Urunler UrunEkle(@Valid @RequestBody Urunler yeniUrunler){
         return service.UrunEkle(yeniUrunler);
     }
@@ -37,7 +37,7 @@ public class UrunlerController {
         return service.urunGuncelle(urunId, guncelUrun);
     }
 
-    @DeleteMapping("/{urunId}")
+    @DeleteMapping("/Sil/{urunId}")
     public void urunSil(@PathVariable Integer urunId) {
         service.urunSil(urunId);
     }

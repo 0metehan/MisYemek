@@ -13,11 +13,11 @@ public class Urunler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
-    @Column(name="urun_Id")
+    @Column(name="urun_id")
     private Integer urunId;
 
     @NotBlank(message = "Ürün ismi boş olamaz")
-    @Column(name="urun_Adı")
+    @Column(name="urun_adi")
     private String urun;
 
     public String getUrun() {

@@ -15,7 +15,7 @@ public class FirmaUrun {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Positive
-    @Column(name = "Urun_Firma_Id")
+    @Column(name = "firma_urun_id")
     private Long id;
 
     @NotNull(message = "Fiyat boş olamaz")
@@ -24,19 +24,19 @@ public class FirmaUrun {
     private BigDecimal fiyat;
 
     @NotNull(message = "Firma ID boş olamaz")
-    @Column(name="firma_Id")
+    @Column(name="firma_id")
     private Long firmaId;
 
     @NotNull(message = "Ürün ID boş olamaz")
-    @Column(name="urun_Id")
+    @Column(name="urun_id")
     private Long urunId;
 
     @ManyToOne(fetch = FetchType.LAZY )
-    @JoinColumn(name = "firma_Id", insertable = false, updatable = false)
+    @JoinColumn(name = "firma_id", insertable = false, updatable = false)
     private Firma firma;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "urun_Id", insertable = false, updatable = false)
+    @JoinColumn(name = "urun_id", insertable = false, updatable = false)
     private Urunler urunler;
 
     public BigDecimal getFiyat() {

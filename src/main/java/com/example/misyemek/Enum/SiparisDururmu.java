@@ -4,5 +4,6 @@ public enum SiparisDururmu {
     HAZIRLANIYOR,
     YOLDA,
     TESLIM_EDILDI,
-    IPTAL;
+    IPTAL,
+    SEPETTE;
 }

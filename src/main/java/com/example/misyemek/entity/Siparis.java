@@ -9,11 +9,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "siparis")
-public class Sipariş {
+public class Siparis {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "siparis_Id")
+    @Column(name = "siparis_id")
     private Long siparisId;
 
     @NotNull(message = "sipariş durumu boş olamaz")
@@ -22,8 +22,8 @@ public class Sipariş {
     private SiparisDururmu siparisDurumu;
 
     @NotNull(message = "kullanıcı boş olamaz")
-    @Column(name = "kullanıcı_Id")
-    private Long kullanıcıId;
+    @Column(name = "kullanici_id")
+    private Long kullaniciId;
 
     @CreationTimestamp
     @Column(name = "siparis_tarih_saat")
@@ -34,32 +34,9 @@ public class Sipariş {
     private Integer adet;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "urun_firma_Id", referencedColumnName = "Urun_Firma_Id")
+    @JoinColumn(name = "urun_firma_id", referencedColumnName = "firma_urun_id")
     private FirmaUrun firmaUrun;
 
-    public Date getTarihSaat() {
-        return tarihSaat;
-    }
-
-    public void setTarihSaat(Date tarihSaat) {
-        this.tarihSaat = tarihSaat;
-    }
-
-    public FirmaUrun getFirmaUrun() {
-        return firmaUrun;
-    }
-
-    public void setFirmaUrun(FirmaUrun firmaUrun) {
-        this.firmaUrun = firmaUrun;
-    }
-
-    public Long getKullanıcıId() {
-        return kullanıcıId;
-    }
-
-    public void setKullanıcıId(Long kullanıcıId) {
-        this.kullanıcıId = kullanıcıId;
-    }
 
     public Long getSiparisId() {
         return siparisId;
@@ -77,11 +54,35 @@ public class Sipariş {
         this.siparisDurumu = siparisDurumu;
     }
 
+    public Long getKullaniciId() {
+        return kullaniciId;
+    }
+
+    public void setKullaniciId(Long kullaniciId) {
+        this.kullaniciId = kullaniciId;
+    }
+
     public Integer getAdet() {
         return adet;
     }
 
     public void setAdet(Integer adet) {
         this.adet = adet;
+    }
+
+    public Date getTarihSaat() {
+        return tarihSaat;
+    }
+
+    public void setTarihSaat(Date tarihSaat) {
+        this.tarihSaat = tarihSaat;
+    }
+
+    public FirmaUrun getFirmaUrun() {
+        return firmaUrun;
+    }
+
+    public void setFirmaUrun(FirmaUrun firmaUrun) {
+        this.firmaUrun = firmaUrun;
     }
 }

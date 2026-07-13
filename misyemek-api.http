@@ -1,0 +1,249 @@
+### =========================================================
+###  MisYemek API - Test Dosyası
+###  Önce LOGIN'i çalıştır (token otomatik dolar), sonra diğerleri.
+### =========================================================
+
+@baseUrl = http://localhost:8080
+
+### ---------------- AUTH ----------------
+
+### LOGIN  (ÖNCE BUNU ÇALIŞTIR)
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "kullaniciAdi": "admin",
+  "sifre": "1234"
+}
+
+> {%
+    client.global.set("token", response.body.accessToken);
+    client.global.set("refreshToken", response.body.refreshToken);
+%}
+
+### REFRESH TOKEN
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+> {%
+    client.global.set("token", response.body.accessToken);
+%}
+
+
+### ---------------- ADRES ----------------
+
+### Tüm adresleri getir
+GET {{baseUrl}}/Adres/Getir
+Authorization: Bearer {{token}}
+
+### Adres kaydet
+POST {{baseUrl}}/Adres/Kaydet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "ulke": "Türkiye",
+  "sehir": "İstanbul",
+  "ilce": "Kadıköy",
+  "mahalle": "Moda"
+}
+
+### Adres güncelle (adresId)
+PUT {{baseUrl}}/Adres/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "sehir": "İstanbul",
+  "ilce": "Kadıköy",
+  "mahalle": "Fenerbahçe"
+}
+
+### Adres sil (adresId)
+DELETE {{baseUrl}}/Adres/Sil/1
+Authorization: Bearer {{token}}
+
+### En yakın firma (kullaniciId)
+GET {{baseUrl}}/Adres/enYakinFirma/3
+Authorization: Bearer {{token}}
+
+
+### ---------------- KULLANICI ----------------
+
+### Tüm kullanıcıları getir
+GET {{baseUrl}}/Kullanici/Getir
+Authorization: Bearer {{token}}
+
+### Kullanıcı kaydet (auth gerekmez - permitAll)
+POST {{baseUrl}}/Kullanici/Kaydet
+Content-Type: application/json
+
+{
+  "kullaniciAdi": "admin",
+  "kullaniciSifresi": "1234"
+}
+
+### Kullanıcı getir (id)
+GET {{baseUrl}}/Kullanici/3
+Authorization: Bearer {{token}}
+
+### Kullanıcı güncelle (id)
+PUT {{baseUrl}}/Kullanici/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "kullaniciAdi": "admin"
+}
+
+### Kullanıcı sil (id)
+DELETE {{baseUrl}}/Kullanici/Sil/1
+Authorization: Bearer {{token}}
+
+
+### ---------------- FIRMA ----------------
+
+### Tüm firmaları getir
+GET {{baseUrl}}/Firma/Getir
+Authorization: Bearer {{token}}
+
+### Firma getir (firmaId)
+GET {{baseUrl}}/Firma/1
+Authorization: Bearer {{token}}
+
+### Firma kaydet
+POST {{baseUrl}}/Firma/Kaydet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firmaAd": "Test Firma",
+  "firmaTelNo": "05551112233",
+  "firmaAdresId": "1"
+}
+
+### Firma güncelle (firmaId)
+PUT {{baseUrl}}/Firma/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "firmaAd": "Güncel Firma",
+  "firmaTelNo": "05559998877"
+}
+
+### Firma sil (firmaId)
+DELETE {{baseUrl}}/Firma/Sil/1
+Authorization: Bearer {{token}}
+
+
+### ---------------- URUNLER ----------------
+
+### Tüm ürünleri getir
+GET {{baseUrl}}/Urunler/Getir
+Authorization: Bearer {{token}}
+
+### Ürün getir (urunId)
+GET {{baseUrl}}/Urunler/1
+Authorization: Bearer {{token}}
+
+### Ürün kaydet
+POST {{baseUrl}}/Urunler/Kaydet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "urun": "Lahmacun"
+}
+
+### Ürün güncelle (urunId)
+PUT {{baseUrl}}/Urunler/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "urun": "Pide"
+}
+
+### Ürün sil (urunId)
+DELETE {{baseUrl}}/Urunler/Sil/1
+Authorization: Bearer {{token}}
+
+
+### ---------------- FIRMA URUN ----------------
+
+### Tüm firma-ürünleri getir
+GET {{baseUrl}}/FirmaUrun/Getir
+Authorization: Bearer {{token}}
+
+### Firma-ürün getir (id)
+GET {{baseUrl}}/FirmaUrun/1
+Authorization: Bearer {{token}}
+
+### Firma-ürün kaydet
+POST {{baseUrl}}/FirmaUrun/Kaydet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fiyat": 120.00,
+  "firmaId": 1,
+  "urunId": 1
+}
+
+### Firma-ürün güncelle (id)
+PUT {{baseUrl}}/FirmaUrun/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "fiyat": 95.00,
+  "firmaId": 1,
+  "urunId": 1
+}
+
+### Firma-ürün sil (id)
+DELETE {{baseUrl}}/FirmaUrun/Sil/1
+Authorization: Bearer {{token}}
+
+### Firma aylık kazanç (firmaId / yil / ay)
+GET {{baseUrl}}/FirmaUrun/FirmaUrunAylikKazanc/1/2026/7
+Authorization: Bearer {{token}}
+
+
+### ---------------- SIPARISLER ----------------
+
+### Tüm siparişleri getir
+GET {{baseUrl}}/Siparisler/Getir
+Authorization: Bearer {{token}}
+
+### Sipariş getir (siparisId)
+GET {{baseUrl}}/Siparisler/1
+Authorization: Bearer {{token}}
+
+### Sipariş kaydet
+POST {{baseUrl}}/Siparisler/Kaydet
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "kullaniciId": 1,
+  "firmaId": 1,
+  "urunId": 1
+}
+
+### Sipariş sil (siparisId)
+DELETE {{baseUrl}}/Siparisler/Sil/1
+Authorization: Bearer {{token}}
+
+### Toplam harcama (firmaId / kullaniciId)
+GET {{baseUrl}}/Siparisler/ToplamHarcama/1/1
+Authorization: Bearer {{token}}
+
+### Ciro (firmaId)
+GET {{baseUrl}}/Siparisler/Ciro/1
+Authorization: Bearer {{token}}

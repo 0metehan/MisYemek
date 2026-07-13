@@ -1,29 +1,29 @@
 package com.example.misyemek.Service;
 
-import com.example.misyemek.entity.Sipariş;
-import com.example.misyemek.repository.SiparişRepository;
+import com.example.misyemek.entity.Siparis;
+import com.example.misyemek.repository.SiparisRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class SiparişService {
-    private final SiparişRepository repository;
+public class SiparisService {
+    private final SiparisRepository repository;
 
-    public SiparişService(SiparişRepository repository) {
+    public SiparisService(SiparisRepository repository) {
         this.repository = repository;
     }
 
-    public Sipariş siparişEkle(Sipariş yeniSipariş) {
-        return repository.save(yeniSipariş);
+    public Siparis siparisEkle(Siparis yeniSiparis) {
+        return repository.save(yeniSiparis);
     }
 
-    public List<Sipariş> siparişFullGetir() {
+    public List<Siparis> siparisFullGetir() {
         return repository.findAll();
     }
 
-    public Sipariş siparişGetir(Long siparisId) {
+    public Siparis siparisGetir(Long siparisId) {
         return repository.findById(siparisId)
                 .orElseThrow(() -> new RuntimeException("Sipariş bulunamadı: " + siparisId));
     }
@@ -39,8 +39,10 @@ public class SiparişService {
         return repository.toplamHarcama(kullaniciId, firmaId);
     }
 
-    // SiparişService.java
+
     public BigDecimal toplamCiro(Long firmaId) {
         return repository.toplamCiro(firmaId);
     }
+
+
 }
