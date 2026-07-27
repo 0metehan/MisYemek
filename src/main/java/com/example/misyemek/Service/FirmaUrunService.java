@@ -1,36 +1,37 @@
 package com.example.misyemek.Service;
 import com.example.misyemek.entity.FirmaUrun;
+import com.example.misyemek.entity.Urunler;
 import com.example.misyemek.repository.FirmaUrunRepository;
 import com.example.misyemek.repository.SiparisRepository;
 import org.springframework.stereotype.Service;
+import com.example.misyemek.repository.UrunlerRepository;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.math.BigDecimal;
 import java.util.List;
-
 
 @Service
 public class FirmaUrunService {
     private final FirmaUrunRepository repository;
     private final SiparisRepository siparisRepository;
+    private final UrunlerRepository urunlerRepository;
 
-    public FirmaUrunService(FirmaUrunRepository repository, SiparisRepository siparisRepository) {
+    public FirmaUrunService(FirmaUrunRepository repository, SiparisRepository siparisRepository, UrunlerRepository urunlerRepository) {
         this.repository = repository;
         this.siparisRepository = siparisRepository;
+        this.urunlerRepository = urunlerRepository;
     }
 
     public List<FirmaUrun> urunFiyatFullGetir() {
         return repository.findAll();
     }
 
-    public FirmaUrun firmaUrunGetir(Long id){
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sipariş bulunamadı: " + id));
+    public List<FirmaUrun> firmaUrunGetir(Long firmaId){
+        return repository.firmaUrunGetir(firmaId);
     }
 
-    public FirmaUrun urunFiyatEkle(FirmaUrun yeniUrunFirma) {
-//        if (yeniUrunFirma.getFiyat() == null || yeniUrunFirma.getFiyat() < 0) {
-//            throw new IllegalArgumentException("Fiyat negatif veya boş olamaz");
-//        }
+    public FirmaUrun urunEkle(FirmaUrun yeniUrunFirma) {
         return repository.save(yeniUrunFirma);
     }
 
@@ -41,9 +42,12 @@ public class FirmaUrunService {
         return repository.save(mevcut);
     }
 
-    public void firmaUrunSil(Long id){
+    public void firmaUrunSil(Long id) {
         if (!repository.existsById(id)) {
-            throw new RuntimeException("id bulunamadı: " + id);
+            throw new RuntimeException("firma ürün bulunamadı: " + id);
+        }
+        if (siparisRepository.existsByFirmaUrunId(id)) {
+            throw new RuntimeException("Bu ürüne ait siparişler var, silinemez");
         }
         repository.deleteById(id);
     }
@@ -52,4 +56,28 @@ public class FirmaUrunService {
         return siparisRepository.firmaUrunAylikKazanc(firmaId, yil, ay);
     }
 
+    public List<Object[]> yemekListele(){
+        return repository.yemekListele();
+    }
+
+    @Transactional
+    public FirmaUrun firmaUrunEkle(Long firmaId , String urunAdi , BigDecimal fiyat) {
+        Optional<Urunler> bulunan = urunlerRepository.findByUrunIgnoreCase(urunAdi);
+        long id;
+        if (bulunan.isPresent()) {   //isPersent() içi dolu mu boşmu döner
+           id = bulunan.get().getUrunId();
+        } else {
+        Urunler yeniUrun = new Urunler();
+        yeniUrun.setUrun(urunAdi);
+        Urunler kaydedilen = urunlerRepository.save(yeniUrun);
+        id = kaydedilen.getUrunId();
+        }
+
+        FirmaUrun yeniKayit = new FirmaUrun();
+        yeniKayit.setFirmaId(firmaId);
+        yeniKayit.setUrunId(id);
+        yeniKayit.setFiyat(fiyat);
+
+        return repository.save(yeniKayit);
+    }
 }

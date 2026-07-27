@@ -19,14 +19,19 @@ public class SiparisController {
         this.service = service;
     }
 
-    @GetMapping("/Getir")
-    public List<Siparis> siparisFullGetir(){
-        return service.siparisFullGetir();
+    @GetMapping("/Getir/{kullaniciId}")
+    public List<Object[]> kullaniciIdSiparisGetir(@PathVariable Long kullaniciId){
+        return service.kullaniciIdSiparisGetir(kullaniciId);
     }
 
-    @GetMapping("/{siparisId}")
-    public Siparis siparisGetir(@PathVariable Long siparisId){
-        return service.siparisGetir(siparisId);
+    @GetMapping("/FirmaGetir/{firmaId}")
+    public List<Object[]> firmaIdSiparisGetir(@PathVariable Long firmaId){
+        return service.firmaIdSiparisGetir(firmaId);
+    }
+
+    @GetMapping("/{kullaniciId}")
+    public List<Siparis> siparisGetir(@PathVariable Long kullaniciId){
+        return service.siparisGetir(kullaniciId);
     }
 
     @PostMapping("/Kaydet")
@@ -49,5 +54,46 @@ public class SiparisController {
     public BigDecimal toplamCiro (@PathVariable Long firmaId ){
         return service.toplamCiro(firmaId );
     }
+
+    @GetMapping("/Sepet/{kullaniciId}")
+    public List<Siparis> sepetGetir(@PathVariable Long kullaniciId){
+        return service.sepetGetir(kullaniciId);
+    }
+
+    @PutMapping("/Sepet/Ode/{kullaniciId}")
+    public List<Siparis> sepetGuncelle(@PathVariable Long kullaniciId){
+        return service.sepetGuncelle(kullaniciId);
+    }
+
+    @PutMapping("/Sepet/Onayla/{siparisId}")
+    public Siparis sepetOnayla(@PathVariable Long siparisId){
+        return service.sepetOnayla(siparisId);
+    }
+
+    @PutMapping("/Sepet/Reddet/{siparisId}")
+    public Siparis sepetReddet(@PathVariable Long siparisId){
+        return service.sepetReddet(siparisId);
+    }
+
+    @GetMapping("/Kurye/Siparis")
+    public List<Object[]> kuryeSiparis(){
+        return service.kuryeSiparis();
+    }
+
+    @PutMapping("/Kurye/TeslimEdildi/{siparisId}")
+    public Siparis kuryeSiparisTeslimEdildi(@PathVariable Long siparisId){
+        return service.kuryeSiparisTeslimEdildi(siparisId);
+    }
+    @PutMapping("/Kurye/Reddet/{siparisId}")
+    public Siparis kuryeSiparisReddet(@PathVariable Long siparisId){
+        return service.kuryeSiparisReddet(siparisId);
+    }
+
+    @GetMapping("/Firma/SiparisTakip/{firmaId}")
+    public List<Object[]> firmaSiparisTakip(@PathVariable Long firmaId){
+        return service.firmaSiparisTakip(firmaId);
+    }
+
+
 
 }

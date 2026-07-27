@@ -1,0 +1,32 @@
+@import "primeflex/primeflex.css";
+.p-sidebar {
+  background-color: #46515d;
+  color: rgb(252, 251, 251);
+}
+
+/* içeriği yukarı çek */
+.p-sidebar .p-sidebar-content {
+  padding-top: 0px;
+}
+.p-sidebar h3 {
+  margin-top: 0;
+}
+
+/* menü listesini temizle */
+.p-sidebar ul {
+  list-style: none;    /* madde işaretlerini kaldır */
+  padding: 0;
+  margin: 0;
+}
+
+/* linkleri düzgün menü öğesi yap */
+.p-sidebar a {
+  display: block;             /* tüm satırı kapla */
+  text-decoration: none;      /* alt çizgiyi kaldır */
+  color: white;               /* beyaz yazı */
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+}
+.p-sidebar a:hover {
+  background: rgba(255, 255, 255, 0.15);  /* üzerine gelince hafif parla */
+}

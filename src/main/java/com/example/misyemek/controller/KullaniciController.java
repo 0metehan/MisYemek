@@ -38,7 +38,7 @@ public class KullaniciController {
 
     @PutMapping("/{id}")
     public Kullanici kullaniciGuncelle(@PathVariable("id") Long id,
-                                       @Valid @RequestBody Kullanici guncelKullanici){
+                                        @RequestBody Kullanici guncelKullanici){
         return service.kullaniciGuncelle(id, guncelKullanici);
     }
     @DeleteMapping("/Sil/{id}")

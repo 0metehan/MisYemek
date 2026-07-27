@@ -1,6 +1,6 @@
 package com.example.misyemek.entity;
 
-import com.example.misyemek.Enum.SiparisDururmu;
+import com.example.misyemek.Enum.SiparisDurumu;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,7 +19,7 @@ public class Siparis {
     @NotNull(message = "sipariş durumu boş olamaz")
     @Enumerated(EnumType.STRING)
     @Column(name = "siparis_durumu")
-    private SiparisDururmu siparisDurumu;
+    private SiparisDurumu siparisDurumu;
 
     @NotNull(message = "kullanıcı boş olamaz")
     @Column(name = "kullanici_id")
@@ -46,11 +46,11 @@ public class Siparis {
         this.siparisId = siparisId;
     }
 
-    public SiparisDururmu getSiparisDurumu() {
+    public SiparisDurumu getSiparisDurumu() {
         return siparisDurumu;
     }
 
-    public void setSiparisDurumu(SiparisDururmu siparisDurumu) {
+    public void setSiparisDurumu(SiparisDurumu siparisDurumu) {
         this.siparisDurumu = siparisDurumu;
     }
 

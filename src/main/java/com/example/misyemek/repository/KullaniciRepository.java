@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface KullaniciRepository extends JpaRepository<Kullanici,Long> {
     Optional<Kullanici> findByKullaniciAdi(String kullaniciAdi);
+    long countByKullaniciAdresId(Long adresId);
 
 }

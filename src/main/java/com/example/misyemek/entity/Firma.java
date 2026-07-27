@@ -26,7 +26,7 @@ public class Firma {
     private String firmaTelNo;
 
     @Column(name = "firma_adres_id")
-    private String firmaAdresId;
+    private Long firmaAdresId;
 
     @ManyToOne
     @JoinColumn(name = "firma_adres_id" , insertable = false, updatable = false)
@@ -56,15 +56,23 @@ public class Firma {
         this.firmaAd = firmaAd;
     }
 
-    public String getFirmaAdresId() {
+    public Long getFirmaAdresId() {
         return firmaAdresId;
     }
 
-    public void setFirmaAdresId(String firmaAdresId) {
+    public void setFirmaAdresId(Long firmaAdresId) {
         this.firmaAdresId = firmaAdresId;
     }
 
     public void setFirmaId(long firmaId) {
         this.firmaId = firmaId;
+    }
+
+    public Adres getAdres() {
+        return adres;
+    }
+
+    public void setAdres(Adres adres) {
+        this.adres = adres;
     }
 }

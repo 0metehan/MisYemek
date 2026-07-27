@@ -1,5 +1,6 @@
 package com.example.misyemek.Service;
 
+import com.example.misyemek.entity.Siparis;
 import com.example.misyemek.entity.Urunler;
 import com.example.misyemek.repository.UrunlerRepository;
 import org.springframework.stereotype.Service;
@@ -42,4 +43,5 @@ public class UrunlerService {
         }
         repository.deleteById(urunId);
     }
+
 }

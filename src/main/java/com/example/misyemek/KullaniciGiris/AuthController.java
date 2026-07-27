@@ -35,7 +35,7 @@ public class AuthController {
 
         String accesstoken = jwtService.generateAccessToken(k.getKullaniciAdi(), k.getKullaniciRol());
         String refreshToken = jwtService.generateRefreshToken(k.getKullaniciAdi());
-        return ResponseEntity.ok(new AuthResponse(accesstoken,refreshToken));
+        return ResponseEntity.ok(new AuthResponse(accesstoken,refreshToken, k.getId()));
     }
 
     @PostMapping("/refresh")
@@ -51,6 +51,6 @@ public class AuthController {
 
         String newAccessToken = jwtService.generateAccessToken(k.getKullaniciAdi(),k.getKullaniciRol());
 
-        return ResponseEntity.ok(new AuthResponse(newAccessToken , refreshToken));
+        return ResponseEntity.ok(new AuthResponse(newAccessToken , refreshToken,k.getId()));
     }
 }

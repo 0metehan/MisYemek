@@ -247,3 +247,15 @@ Authorization: Bearer {{token}}
 ### Ciro (firmaId)
 GET {{baseUrl}}/Siparisler/Ciro/1
 Authorization: Bearer {{token}}
+
+### Kurye kaydet
+POST http://localhost:8080/kullanici/kaydet
+Content-Type: application/json
+
+{
+  "kullaniciAdi": "kurye2",
+  "kullaniciSifresi": "1234",
+  "kullaniciTelNo": "5550001122",
+  "kullaniciRol": "KURYE",
+  "kullaniciAdresId": 11
+}

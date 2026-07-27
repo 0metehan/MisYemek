@@ -1,0 +1,22 @@
+<div class="flex flex-column gap-3 p-3">
+  @for(s of takip; track s[0]){
+    <p-card>
+      <div class="flex justify-content-between align-items-center mb-4">
+        <span class="text-xl font-bold">Sipariş #{{ s[0] }}</span>
+
+        @if(s[2] === 'IPTAL'){
+          <p-tag value="İptal Edildi" severity="danger" icon="pi pi-times" />
+        } @else {
+          <p-tag [value]="s[2]" severity="info" />
+        }
+      </div>
+
+      @if(s[2] !== 'IPTAL'){
+        <p-steps [model]="durumAdimlari"
+                 [activeIndex]="durumIndex(s[2])"
+                 [readonly]="true" />
+      }
+    </p-card>
+  }
+</div>
+

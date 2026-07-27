@@ -1,0 +1,64 @@
+@if (router.url !== '/login') {
+
+<nav class="flex align-items-center gap-2 px-4 py-3 sticky top-0 z-5 surface-card shadow-2">
+  <span class="font-bold text-xl mr-3 flex align-items-center gap-2">
+    <img src="assets/foto/2.png" alt="MisYemek" class="h-2rem w-auto" />
+    MisYemek
+  </span>
+
+  <p-button routerLink="/yemek" label="Yemek" [text]="true" />
+  <p-button routerLink="/sepet" label="Sepet" icon="pi pi-shopping-cart" [text]="true" />
+  <p-button routerLink="/siparisTakip" label="Siparişlerim" icon="pi pi-map-marker" [text]="true" />
+
+  <div class="ml-auto flex gap-2">
+
+    @if (firmaSahip) {
+    <div class="relative">
+      <p-button label="Firmam" icon="pi pi-briefcase" severity="warning" [text]="true"
+        (onClick)="firmaMenuAcik = !firmaMenuAcik" />
+
+      @if (firmaMenuAcik) {
+      <div class="absolute shadow-3 border-round p-2 flex flex-column gap-1 mt-1" style="right: 0; min-width: 14rem; z-index: 1000;
+            background: var(--surface-card); border: 1px solid var(--surface-border);">
+        <p-button label="Ürünlerim" icon="pi pi-box" [text]="true" styleClass="w-full justify-content-start"
+          (onClick)="urunlerimeGit()" />
+
+        <p-button label="Firma Ayarları" icon="pi pi-cog" [text]="true" styleClass="w-full justify-content-start"
+          (onClick)="firmaAyarlarinaGit()" />
+
+          <p-button label="Siparişler" icon="pi pi-cog" [text]="true" styleClass="w-full justify-content-start"
+          (onClick)="firmaSiparislerineGit()" />
+
+          <p-button label="Sipariş Durumu" icon="pi pi-cog" [text]="true" styleClass="w-full justify-content-start"
+          (onClick)="firmaSiparisTakip()" />
+      </div>
+      }
+    </div>
+    }
+
+   @if (kurye) {
+<div class="relative">
+  <p-button label="Kurye" icon="pi pi-truck" severity="help" [text]="true"
+    (onClick)="kuryeMenuAcik = !kuryeMenuAcik" />
+
+  @if (kuryeMenuAcik) {
+  <div class="absolute shadow-3 border-round p-2 flex flex-column gap-1 mt-1" style="right: 0; min-width: 14rem; z-index: 1000;
+        background: var(--surface-card); border: 1px solid var(--surface-border);">
+    <p-button label="Teslimatlar" icon="pi pi-box" [text]="true" styleClass="w-full justify-content-start"
+      (onClick)="teslimatlarimaGit()" />
+
+    <p-button label="Kurye Ayarları" icon="pi pi-cog" [text]="true" styleClass="w-full justify-content-start"
+      (onClick)="kuryeAyarlarinaGit()" />
+  </div>
+  }
+</div>
+}
+    <p-button routerLink="/hesap" label="Hesap" icon="pi pi-user" [text]="true" />
+    <p-button (onClick)="logout()" label="Çıkış Yap" icon="pi pi-sign-out" severity="danger" [text]="true" />
+  </div>
+</nav>
+}
+
+<main>
+  <router-outlet></router-outlet>
+</main>

@@ -41,4 +41,9 @@ public class AdresController {
     public List<Object[]> enYakinFirma(@PathVariable Long kullaniciId){
         return service.enYakinFirma(kullaniciId);
     }
+
+    @GetMapping("/urunListele/{kullaniciId}/{urunId}")
+    public List<Object[]> urunListele(@PathVariable Long kullaniciId , @PathVariable Long urunId){
+        return service.urunListele(kullaniciId , urunId );
+    }
 }

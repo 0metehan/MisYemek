@@ -1,0 +1,36 @@
+<p-toast />
+<p-confirmPopup />
+
+<h2>{{ urunler[0]?.firma?.firmaAd }}</h2>
+
+<p-dataView [value]="urunler" [rows]="5" [paginator]="true">
+  <ng-template pTemplate="list" let-liste>
+    <div class="grid grid-nogutter">
+      <div *ngFor="let item of liste; let first = first" class="col-12">
+        <div class="flex align-items-center justify-content-between p-4 gap-3"
+             [ngClass]="{ 'border-top-1 surface-border': !first }">
+          <div class="flex align-items-center gap-3">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhEOJ_oIhhZQJJIFkRUznDulg-FaO1s6oFW7WvSBftiQ&s=10"
+           alt="ürün" class="border-round" style="width: 5rem" />
+         <div class="text-lg font-medium text-900">{{ item.urunler.urun }}</div>
+            </div>
+          <div class="flex align-items-center gap-3">
+            <span class="text-xl font-semibold text-900">{{ item.fiyat }} ₺</span>
+            <p-inputNumber
+            [(ngModel)]="item.adet"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+            incrementButtonClass="p-button-text"
+            decrementButtonClass="p-button-text"
+            inputStyleClass="w-2rem text-center border-none"
+            [min]="1" 
+            [max]="9"/>
+            <p-button icon="pi pi-shopping-cart" label="Sepete Ekle" (click)="sepetEkle( item.id, item.adet)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-dataView>

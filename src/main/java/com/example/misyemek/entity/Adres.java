@@ -10,9 +10,6 @@ public class Adres {
     @Column(name = "adres_id")
     private Long adresId;
 
-    @Column(name = "ulke")
-    private String Ulke;
-
     @Column(name = "sehir")
     private String sehir;
 

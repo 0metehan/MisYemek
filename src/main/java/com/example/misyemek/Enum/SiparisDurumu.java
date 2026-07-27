@@ -1,6 +1,6 @@
 package com.example.misyemek.Enum;
 
-public enum SiparisDururmu {
+public enum SiparisDurumu {
     HAZIRLANIYOR,
     YOLDA,
     TESLIM_EDILDI,

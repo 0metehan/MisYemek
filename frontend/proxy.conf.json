@@ -1,0 +1,34 @@
+{
+  "/auth": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/Adres": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/Firma": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/FirmaUrun": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/Kullanici": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/Siparisler": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/Urunler": {
+    "target": "http://localhost:8080",
+    "secure": false
+  },
+  "/FirmaSahibi": {
+    "target":"http://localhost:8080",
+    "secure":false
+  }
+}

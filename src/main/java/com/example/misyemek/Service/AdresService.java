@@ -43,6 +43,8 @@ public class AdresService {
     public List<Object[]> enYakinFirma(Long kullaniciId){
        return repository.enYakinFirma(kullaniciId);
     }
-
+    public List<Object[]> urunListele(Long kullaniciId , Long urunId){
+        return repository.urunListele(kullaniciId , urunId);
+    }
 
 }

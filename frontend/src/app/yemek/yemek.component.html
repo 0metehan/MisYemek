@@ -1,0 +1,68 @@
+<div class="flex justify-content-center mt-3">
+  <p-inputGroup class="w-20rem">
+    <input type="text" pInputText placeholder="Restoran Bul" [(ngModel)]="arama" (ngModelChange)="adresFiltrele()" />
+    <p-inputGroupAddon>
+      <i class="pi pi-search"></i>
+    </p-inputGroupAddon>
+  </p-inputGroup>
+</div>
+
+<div class="flex gap-3 mt-3 align-items-start">
+
+  <aside class="flex-shrink-0 sticky top-4 px-6" style="width: 22rem; margin-top: -1rem">
+
+    <div class="flex align-items-center gap-3">
+      <i class="pi pi-user flex-shrink-0" style="font-size: 2.5rem"></i>
+      <div class="text-left">
+        <div class="text-xl font-bold">{{ hesap?.kullaniciAdi }}</div>
+        <div class="mt-1 text-color-secondary">{{ hesap?.kullaniciTelNo }}</div>
+        <div class="mt-1 text-color-secondary" style="white-space: nowrap">
+          {{ hesap?.adres?.mahalle }} / {{ hesap?.adres?.ilce }} / {{ hesap?.adres?.sehir }}
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 text-left">
+      <div class="font-bold mb-3">Yakınlık</div>
+
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="yakinlik" value="tumu" [(ngModel)]="secim" inputId="y-tumu"
+          (ngModelChange)="adresFiltrele()" />
+        <label for="y-tumu" class="cursor-pointer">Tümü</label>
+      </div>
+
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="yakinlik" value="ilce" [(ngModel)]="secim" inputId="y-ilce"
+          (ngModelChange)="adresFiltrele()" />
+        <label for="y-ilce" class="cursor-pointer">Aynı ilçe</label>
+      </div>
+
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="yakinlik" value="mahalle" [(ngModel)]="secim" inputId="y-mahalle"
+          (ngModelChange)="adresFiltrele()" />
+        <label for="y-mahalle" class="cursor-pointer">Aynı mahalle</label>
+      </div>
+    </div>
+
+    <div class="mt-4 text-left">
+      <div class="font-bold mb-2">Yemek</div>
+      <p-dropdown [options]="urunler" [(ngModel)]="seciliUrun" optionLabel="ad" optionValue="id" placeholder="Tümü"
+        [showClear]="true" [filter]="true" styleClass="w-full" (ngModelChange)="urunSecildi()" />
+    </div>
+
+  </aside>
+
+  <div class="flex flex-wrap gap-3 flex-1">
+    @for (y of filtreliYemek; track $index) {
+    <p-card [header]="y[0]" [style]="{ width: '300px' }">
+      <ng-template pTemplate="header">
+        <img [src]="'assets/firmalar/' + y[5] + '.jpg'" alt="firma"
+          style="width: 100%; height: 140px; object-fit: cover;" />
+      </ng-template>
+      <p>{{ y[3] }} / {{ y[2] }} / {{ y[1] }}</p>
+      <p-button label="Ziyaret Et" [text]="true" [raised]="true" [routerLink]="['/firmaSayfasi', y[5]]" />
+    </p-card>
+    }
+  </div>
+
+</div>

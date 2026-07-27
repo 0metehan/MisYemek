@@ -18,6 +18,11 @@ public class FirmaController {
         this.service = service;
     }
 
+    @GetMapping("/Ara/{firmaAdi}")
+    public List<Firma> firmaAdiGetir(@PathVariable String firmaAdi){
+        return service.firmaAdiGetir(firmaAdi);
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/Getir")
     public List<Firma> firmaFullGetir() {

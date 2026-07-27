@@ -1,6 +1,7 @@
 package com.example.misyemek.controller;
 import com.example.misyemek.Service.FirmaUrunService;
 import com.example.misyemek.entity.FirmaUrun;
+import com.example.misyemek.entity.Urunler;
 import jakarta.validation.Valid;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,15 +23,16 @@ public class FirmaUrunController {
         return service.urunFiyatFullGetir();
     }
 
-    @GetMapping("/{id}")
-    public FirmaUrun firmaUrunGetir(@PathVariable Long id){
-        return service.firmaUrunGetir(id);
+    @GetMapping("/{firmaId}")
+    public List<FirmaUrun> firmaUrunGetir(@PathVariable Long firmaId){
+        return service.firmaUrunGetir(firmaId);
     }
 
-    @PostMapping("/Kaydet")  // FirmaUrun entity yerine dto olsun
-    public FirmaUrun urunFiyatEkle(@Valid @RequestBody  FirmaUrun yeniUrunFirma){
-        return service.urunFiyatEkle(yeniUrunFirma);
+    @PostMapping("/Kaydet")
+    public FirmaUrun urunEkle(@Valid @RequestBody  FirmaUrun yeniUrunFirma){
+        return service.urunEkle(yeniUrunFirma);
     }
+
     @PutMapping("/{id}")
     public FirmaUrun gunceleFirmaUrun (@PathVariable Long id, @Valid @RequestBody FirmaUrun guncelFirmaUrun){
         return service.gunceleFirmaUrun(id , guncelFirmaUrun);
@@ -45,5 +47,15 @@ public class FirmaUrunController {
     @PreAuthorize("hasRole('ADMIN')")
     public BigDecimal firmaUrunAylikKazanc(@PathVariable Long firmaId, @PathVariable int yil, @PathVariable int ay){
         return service.firmaUrunAylikKazanc(firmaId , yil, ay);
+    }
+
+    @GetMapping("/yemekListele")
+    public List<Object[]> yemekListele (){
+        return service.yemekListele();
+    }
+
+    @PostMapping("/FirmaUrunKaydet")
+    public FirmaUrun firmaUrunEkle(@RequestParam Long firmaId, @RequestParam String urunAdi, @RequestParam BigDecimal fiyat){
+        return service.firmaUrunEkle(firmaId, urunAdi, fiyat);
     }
 }
