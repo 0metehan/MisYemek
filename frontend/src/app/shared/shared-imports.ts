@@ -25,6 +25,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DropdownModule } from 'primeng/dropdown';
 import { StepsModule } from 'primeng/steps';
+import { CalendarModule } from 'primeng/calendar';
 
 export const SHARED_IMPORTS = [
   InputTextModule,       
@@ -55,4 +56,5 @@ export const SHARED_IMPORTS = [
   RadioButtonModule,
   DropdownModule,
   StepsModule,
+  CalendarModule,
 ];

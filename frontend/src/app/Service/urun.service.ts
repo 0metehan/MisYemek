@@ -5,4 +5,8 @@ import { BaseService } from '../core/services/base.service';
 @Injectable({providedIn: 'root'})
 export class UrunService extends BaseService{
     protected baseUrl = '/Urunler'
+
+ hepsiniGetir(): Observable<any[]> {
+    return this.get<any[]>('Getir');
+  }
 }

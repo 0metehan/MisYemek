@@ -11,6 +11,7 @@ import { KuryeAyarlariComponent } from './kurye-ayarlari/kurye-ayarlari.componen
 import { TeslimatComponent } from './teslimat/teslimat.component';
 import { SiparisTakipComponent } from './siparis-takip/siparis-takip.component';
 import { FirmaSiparisTakipComponent } from './firma-siparis-takip/firma-siparis-takip.component';   
+import { KayitEkraniComponent } from './kayit-ekrani/kayit-ekrani.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -26,4 +27,5 @@ export const routes: Routes = [
     {path: 'teslimat', component: TeslimatComponent},
     {path: 'siparisTakip', component: SiparisTakipComponent},
     {path: 'firmaSiparisTakip/:firmaId' , component: FirmaSiparisTakipComponent},
+    {path: 'KayitOl' , component: KayitEkraniComponent}
 ];

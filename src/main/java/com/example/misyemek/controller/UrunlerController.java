@@ -42,4 +42,9 @@ public class UrunlerController {
         service.urunSil(urunId);
     }
 
+    @GetMapping("/Turu/{urunTuru}")
+    public List<Urunler> urunTuruGetir(@PathVariable String urunTuru){
+        return service.urunTuruGetir(urunTuru);
+    }
+
 }

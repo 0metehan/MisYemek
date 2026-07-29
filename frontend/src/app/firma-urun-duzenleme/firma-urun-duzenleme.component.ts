@@ -27,7 +27,11 @@ export class FirmaUrunDuzenlemeComponent implements OnInit {
   urunEkle: any = null;
   urunAdi: any = '';
   urunFiyat: any = null;
+  urunTuru: string = '';
 
+  turler: string[] = ['KEBAP', 'PIDE', 'LAHMACUN', 'FASTFOOD', 'DURUM', 'MANTI',
+                    'MEZE', 'CORBA', 'SALATA', 'SOS', 'ANA_YEMEK', 'EV_YEMEGI',
+                    'SOKAK_LEZZETI', 'TATLI', 'ICECEK', 'BALIK'];
 
   ngOnInit() {
     this.urunleriGetir();
@@ -65,11 +69,12 @@ export class FirmaUrunDuzenlemeComponent implements OnInit {
   }
 
   firmaUrunKaydet() {
-    this.firmaUrunService.firmaUrunKaydet(this.firmaId, this.urunAdi, this.urunFiyat).subscribe(() => {
+    this.firmaUrunService.firmaUrunKaydet(this.firmaId, this.urunAdi, this.urunFiyat , this.urunTuru).subscribe(() => {
       this.urunleriGetir();
       this.messageService.add({ severity: 'success', summary: 'Ürün eklendi' });
       this.urunAdi = '';
       this.urunFiyat = null;
+      this.urunTuru = '';
     }
     )
   }

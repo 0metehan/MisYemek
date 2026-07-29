@@ -61,7 +61,7 @@ public class FirmaUrunService {
     }
 
     @Transactional
-    public FirmaUrun firmaUrunEkle(Long firmaId , String urunAdi , BigDecimal fiyat) {
+    public FirmaUrun firmaUrunEkle(Long firmaId , String urunAdi , BigDecimal fiyat ,String urunTuru) {
         Optional<Urunler> bulunan = urunlerRepository.findByUrunIgnoreCase(urunAdi);
         long id;
         if (bulunan.isPresent()) {   //isPersent() içi dolu mu boşmu döner
@@ -69,6 +69,7 @@ public class FirmaUrunService {
         } else {
         Urunler yeniUrun = new Urunler();
         yeniUrun.setUrun(urunAdi);
+        yeniUrun.setUrunTuru(urunTuru);
         Urunler kaydedilen = urunlerRepository.save(yeniUrun);
         id = kaydedilen.getUrunId();
         }
@@ -79,5 +80,9 @@ public class FirmaUrunService {
         yeniKayit.setFiyat(fiyat);
 
         return repository.save(yeniKayit);
+    }
+
+    public List<Object[]> turFirma(String urunTuru){
+        return repository.turFirma(urunTuru);
     }
 }

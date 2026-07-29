@@ -83,9 +83,9 @@
             <input type="text" [(ngModel)]="hesap.adres.sehir" pInputText placeholder="Şehir" />
             <div class="flex gap-2 align-items-center">
               <p-button icon="pi pi-check" label="Kaydet"
-                        (click)="kullaniciGuncelleOnay($event); adresInplace.deactivate()" />
-              <p-button icon="pi pi-times" severity="danger" [text]="true"
-                        (click)="adresInplace.deactivate()" />
+          (click)="kullaniciGuncelleOnay($event, adresInplace)" />
+<p-button icon="pi pi-times" severity="danger" [text]="true"
+          (click)="adresInplace.deactivate()" />
             </div>
           </div>
         </ng-template>
@@ -101,10 +101,10 @@
         <ng-template pTemplate="content">
           <div class="flex gap-2 align-items-center">
             <input type="password" [(ngModel)]="yeniSifre" pInputText placeholder="Yeni şifre" />
-            <p-button icon="pi pi-check" label="Kaydet"
-                      (click)="kullaniciSifreOnay($event); sifreInplace.deactivate()" />
-            <p-button icon="pi pi-times" severity="danger" [text]="true"
-                      (click)="sifreInplace.deactivate()" />
+                 <p-button icon="pi pi-check" label="Kaydet"
+          (click)="kullaniciSifreOnay($event, adresInplace)" />
+<p-button icon="pi pi-times" severity="danger" [text]="true"
+          (click)="adresInplace.deactivate()" />
           </div>
         </ng-template>
       </p-inplace>

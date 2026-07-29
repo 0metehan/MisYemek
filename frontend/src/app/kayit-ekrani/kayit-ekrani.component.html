@@ -1,0 +1,26 @@
+<div class="flex flex-column gap-2">
+  <label class="font-bold" for="telno">Telefon No</label>
+  <input pInputText id="telno" type="text" [(ngModel)]="TelNo" name="telno" />
+</div>
+<div class="flex flex-column gap-2">
+  <label class="font-bold" for="telno">Kullanıcı Adı</label>
+  <input pInputText type="text" [(ngModel)]="username" name="telno" />
+</div>
+<div class="flex flex-column gap-2">
+  <label class="font-bold" for="telno">Şifre</label>
+  <input pInputText type="text" [(ngModel)]="password" name="telno" />
+</div>
+
+<div class="flex flex-column gap-2">
+  <label class="font-bold" for="rol">Rol</label>
+  <select id="rol" [(ngModel)]="kullaniciRol" name="rol">
+    <option value="" disabled>Rol seçin</option>
+    <option value="KULLANICI">Kullanıcı</option>
+    <option value="ADMIN">Firma Sahibi</option>
+    <option value="KURYE">KURYE</option>
+  </select>
+</div>
+
+<p-button label="Kayıt Ol" icon="pi pi-user-plus" (onClick)="kullaniciEkle()" />
+
+    <p>{{ message }}</p>

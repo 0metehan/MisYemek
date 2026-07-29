@@ -69,12 +69,33 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
             "WHERE fu.firmaId = :firmaId " +
             "AND s.siparisDurumu IN (com.example.misyemek.Enum.SiparisDurumu.YOLDA, " +
             "com.example.misyemek.Enum.SiparisDurumu.TESLIM_EDILDI, " +
-            "com.example.misyemek.Enum.SiparisDurumu.IPTAL)")
+            "com.example.misyemek.Enum.SiparisDurumu.IPTAL) " +
+            "ORDER BY s.siparisId DESC")
     List<Object[]> firmaSiparisTakip(@Param("firmaId") Long firmaId);
 
     List<Siparis> findByKullaniciIdAndSiparisDurumu(Long kullaniciId, SiparisDurumu siparisDurumu);
-
     boolean existsByFirmaUrunId(Long firmaUrunId);
     List<Siparis> findByKullaniciId(Long kullaniciId);
 
+    @Query("SELECT COUNT(s) " +
+            "FROM Siparis s " +
+            "JOIN s.firmaUrun fu " +
+            "WHERE fu.firmaId = :firmaId " +
+            "AND YEAR(s.tarihSaat) = :yil " +
+            "AND MONTH(s.tarihSaat) = :ay " +
+            "AND s.siparisDurumu = com.example.misyemek.Enum.SiparisDurumu.TESLIM_EDILDI")
+    Long firmaTeslimSayac(@Param("firmaId") Long firmaId,
+                          @Param("yil") int yil,
+                          @Param("ay") int ay);
+
+    @Query("SELECT COUNT(s) " +
+            "FROM Siparis s " +
+            "JOIN s.firmaUrun fu " +
+            "WHERE fu.firmaId = :firmaId " +
+            "AND YEAR(s.tarihSaat) = :yil " +
+            "AND MONTH(s.tarihSaat) = :ay " +
+            "AND s.siparisDurumu = com.example.misyemek.Enum.SiparisDurumu.IPTAL")
+    Long firmaIptalSayac(@Param("firmaId") Long firmaId,
+                          @Param("yil") int yil,
+                          @Param("ay") int ay);
 }

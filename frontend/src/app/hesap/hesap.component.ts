@@ -31,20 +31,29 @@ export class HesapComponent {
     this.kullaniciIdSiparisGetir();
   }
 
-  kullaniciGuncelleOnay(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Kullanıcı güncellensin mi?',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Evet',
-      rejectLabel: 'Hayır',
-      accept: () => this.kullaniciGuncelle()
-    });
-  }
+kullaniciGuncelleOnay(event: Event, inplace?: any) {
+  this.confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: 'Kullanıcı güncellensin mi?',
+    icon: 'pi pi-exclamation-triangle',
+    acceptLabel: 'Evet',
+    rejectLabel: 'Hayır',
+    accept: () => {
+      this.kullaniciGuncelle();
+      inplace?.deactivate();
+    },
+    reject: () => inplace?.deactivate()
+  });
+}
 
   kullaniciGetir() {
-    this.kullaniciService.kullaniciGetir().subscribe(data => this.hesap = data);
-  }
+  this.kullaniciService.kullaniciGetir().subscribe(data => {
+    this.hesap = data;
+    if (!this.hesap.adres) {
+      this.hesap.adres = { sehir: '', ilce: '', mahalle: '' };
+    }
+  });
+}
 
   kullaniciGuncelle() {
     this.kullaniciService.kullaniciGuncelle(this.hesap.id, this.hesap).subscribe(() => {
@@ -66,14 +75,16 @@ export class HesapComponent {
       this.yeniSifre=''
       this.messageService.add({ severity: 'success', summary: 'Kullanıcı güncellendi' })  }  )}
 
-    kullaniciSifreOnay(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: 'Kullanıcı Şifresi Güncellensin mi?',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Evet',
-      rejectLabel: 'Hayır',
-      accept: () => this.sifreGuncelle()
-    });
-  }
+kullaniciSifreOnay(event: Event, inplace?: any) {
+  this.confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: 'Kullanıcı Şifresi Güncellensin mi?',
+    icon: 'pi pi-exclamation-triangle',
+    acceptLabel: 'Evet',
+    rejectLabel: 'Hayır',
+    accept: () => { this.sifreGuncelle(); inplace?.deactivate(); },
+    reject: () => inplace?.deactivate()
+  });
+}
+  
 }

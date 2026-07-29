@@ -26,11 +26,18 @@ export class FirmaUrunService extends BaseService {
     return this.delete<any[]>(`Sil/${firmaUrunId}`)
   }
 
-    firmaUrunKaydet(firmaId: number | string, urunAdi: string, fiyat: number): Observable<any> {
+  firmaUrunKaydet(firmaId: number | string, urunAdi: string, fiyat: number ,urunTuru: string): Observable<any> {
     return this.post<any>(
-      `FirmaUrunKaydet?firmaId=${firmaId}&urunAdi=${encodeURIComponent(urunAdi)}&fiyat=${fiyat}`,
+      `FirmaUrunKaydet?firmaId=${firmaId}&urunAdi=${encodeURIComponent(urunAdi)}&fiyat=${fiyat}&urunTuru=${urunTuru}`,
       null
     );
   }//encodeURIComponent(urunAdi) türkçe karakterler için hata engelleme
 
+  turFirma(urunTuru :string): Observable<any[]>{
+    return this.get<any[]>(`Firma/UrunTuru?urunTuru=${urunTuru}`)
+  }
+
+  firmaUrunAylikKazanc(firmaId: string , yil: number , ay: number): Observable<any>{
+    return this.get<any>(`FirmaUrunAylikKazanc/${firmaId}/${yil}/${ay}`)
+  }
 }

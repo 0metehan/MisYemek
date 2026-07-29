@@ -21,4 +21,13 @@ export class KullaniciService extends BaseService {
   sifreGuncelle(id: number ,yeniSifre: string): Observable<any>{
     return this.put<any>(`${id}` , {kullaniciSifresi: yeniSifre})
   }
+
+  kullaniciEkle(kullaniciAdi: string, password: string, TelNo: string ,kullaniciRol: string): Observable<any> {
+  return this.post<any>(`Kaydet`, {
+    kullaniciAdi: kullaniciAdi,
+    kullaniciSifresi: password,
+    kullaniciTelNo: TelNo,
+    kullaniciRol : kullaniciRol,
+  });
+}
 }

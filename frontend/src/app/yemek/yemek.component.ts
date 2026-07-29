@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { KullaniciService } from '../Service/kullanici.service';
 import { FirmaUrunService } from '../Service/firma-urun.service';
 import { FirmaService } from '../Service/firma.service';
+import { UrunService } from '../Service/urun.service';
 
 @Component({
   selector: 'app-yemek',
@@ -18,7 +19,8 @@ export class YemekComponent implements OnInit {
   private kullaniciService = inject(KullaniciService);
   private firmaUrunService = inject(FirmaUrunService);
   private firmaService = inject(FirmaService);
-
+  private urunService = inject(UrunService);
+ 
   yemek: any[] = [];
   hesap: any = null;
   secim: string = "tumu";
@@ -27,11 +29,15 @@ export class YemekComponent implements OnInit {
   seciliUrun: any = null;
   arama: string = ''
   firma: any[] = [];
+  turListesi: any[] = [];
+  seciliTur: string =''
+  turAdDuzeltme: any[] = []
 
   ngOnInit() {
     this.EnYakinAdres();
     this.kullaniciGetir();
     this.urunListele();
+    this.kategorileriYukle();
   }
 
   EnYakinAdres() {
@@ -87,4 +93,49 @@ export class YemekComponent implements OnInit {
     this.firmaService.firmaAra(this.arama).subscribe(data => this.firma = data);
   }
 
+  turFirma(){
+      this.firmaUrunService.turFirma(this.seciliTur).subscribe(data => {
+      this.yemek = data;
+      this.adresFiltrele();}
+    )
+  }
+
+  turSecildi(tur: string) {
+  this.seciliTur = tur;
+  if (!this.seciliTur) {
+    this.EnYakinAdres();      
+  } else {
+    this.turFirma();     
+  }
+}
+
+kategorileriYukle() {
+  this.urunService.hepsiniGetir().subscribe(data => {
+    this.turListesi = [];
+    for (const u of data) {
+      if (u.urunTuru
+          && u.urunTuru !== 'ICECEK'
+          && u.urunTuru !== 'SOS'
+          && !this.turListesi.includes(u.urunTuru)) {
+        this.turListesi.push(u.urunTuru);
+      }
+    }
+  });
+}
+
+turEtiketleri: { [key: string]: string } = {
+  FASTFOOD: 'Fast Food',
+  LAHMACUN: 'Lahmacun',
+  PIDE: 'Pide',
+  EV_YEMEGI: 'Ev Yemeği',
+  MANTI: 'Mantı',
+  DURUM: 'Dürüm',
+  CORBA: 'Çorba',
+  SALATA: 'Salata',
+  KEBAP: 'Kebap',
+  SOKAK_LEZZETI: 'Sokak Lezzetleri',
+  TATLI: 'Tatlı',
+  BALIK: 'Balık',
+  MEZE: 'Meze',
+}
 }

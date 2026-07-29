@@ -55,7 +55,14 @@ public class FirmaUrunController {
     }
 
     @PostMapping("/FirmaUrunKaydet")
-    public FirmaUrun firmaUrunEkle(@RequestParam Long firmaId, @RequestParam String urunAdi, @RequestParam BigDecimal fiyat){
-        return service.firmaUrunEkle(firmaId, urunAdi, fiyat);
+    public FirmaUrun firmaUrunEkle(@RequestParam Long firmaId, @RequestParam String urunAdi, @RequestParam BigDecimal fiyat ,@RequestParam String urunTuru){
+        return service.firmaUrunEkle(firmaId, urunAdi, fiyat ,urunTuru);
     }
+
+    @GetMapping("/Firma/UrunTuru")
+    public List<Object[]> turFirma(@RequestParam String urunTuru){
+        return service.turFirma(urunTuru);
+    }
+
+
 }

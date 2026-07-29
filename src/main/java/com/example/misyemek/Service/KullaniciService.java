@@ -50,52 +50,59 @@ public class KullaniciService {
             mevcut.setKullaniciSifresi(passwordEncoder.encode(guncelKullanici.getKullaniciSifresi()));
         }
 
-        if (guncelKullanici.getAdres() != null){
+        if (guncelKullanici.getAdres() != null) {
             Long eskiAdresId = mevcut.getKullaniciAdresId();
-
             Adres gelen = guncelKullanici.getAdres();
 
-            Adres eskiAdres = adresRepository.findById(eskiAdresId)
-                    .orElseThrow(() -> new RuntimeException("adres yok"));
-
-            long kullaniciSayisi = repository.countByKullaniciAdresId(eskiAdresId);
-
-            long firmaSayisi = firmaRepository.countByFirmaAdresId(eskiAdresId);
-
-            if (kullaniciSayisi > 1 || firmaSayisi > 0) {
+            if (eskiAdresId == null) {
                 Adres yeniAdres = new Adres();
-                yeniAdres.setSehir(eskiAdres.getSehir());
-                yeniAdres.setIlce(eskiAdres.getIlce());
-                yeniAdres.setMahalle(eskiAdres.getMahalle());
-
-                if (gelen.getSehir() != null){
-                    yeniAdres.setSehir(gelen.getSehir());
-                }
-                if (gelen.getIlce() != null) {
-                    yeniAdres.setIlce(gelen.getIlce());
-                }
-                if (gelen.getMahalle() != null){
-                    yeniAdres.setMahalle(gelen.getMahalle());
-                }
-
+                yeniAdres.setSehir(gelen.getSehir());
+                yeniAdres.setIlce(gelen.getIlce());          //yeni kullanıcıların adresi olmadığı için yazıldı.
+                yeniAdres.setMahalle(gelen.getMahalle());
                 adresRepository.save(yeniAdres);
                 mevcut.setKullaniciAdresId(yeniAdres.getAdresId());
             } else {
+                Adres eskiAdres = adresRepository.findById(eskiAdresId)
+                        .orElseThrow(() -> new RuntimeException("adres yok"));
 
-                if (gelen.getSehir() != null) {
-                    eskiAdres.setSehir(gelen.getSehir());
-                }
-                if (gelen.getIlce() != null) {
-                    eskiAdres.setIlce(gelen.getIlce());
-                }
-                if (gelen.getMahalle() != null){
-                    eskiAdres.setMahalle(gelen.getMahalle());
-                }
+                long kullaniciSayisi = repository.countByKullaniciAdresId(eskiAdresId);
 
-                adresRepository.save(eskiAdres);
+                long firmaSayisi = firmaRepository.countByFirmaAdresId(eskiAdresId);
+
+                if (kullaniciSayisi > 1 || firmaSayisi > 0) {
+                    Adres yeniAdres = new Adres();
+                    yeniAdres.setSehir(eskiAdres.getSehir());
+                    yeniAdres.setIlce(eskiAdres.getIlce());
+                    yeniAdres.setMahalle(eskiAdres.getMahalle());
+
+                    if (gelen.getSehir() != null) {
+                        yeniAdres.setSehir(gelen.getSehir());
+                    }
+                    if (gelen.getIlce() != null) {
+                        yeniAdres.setIlce(gelen.getIlce());
+                    }
+                    if (gelen.getMahalle() != null) {
+                        yeniAdres.setMahalle(gelen.getMahalle());
+                    }
+
+                    adresRepository.save(yeniAdres);
+                    mevcut.setKullaniciAdresId(yeniAdres.getAdresId());
+                } else {
+
+                    if (gelen.getSehir() != null) {
+                        eskiAdres.setSehir(gelen.getSehir());
+                    }
+                    if (gelen.getIlce() != null) {
+                        eskiAdres.setIlce(gelen.getIlce());
+                    }
+                    if (gelen.getMahalle() != null) {
+                        eskiAdres.setMahalle(gelen.getMahalle());
+                    }
+
+                    adresRepository.save(eskiAdres);
+                }
             }
         }
-
         return repository.save(mevcut);
     }
 
@@ -108,9 +115,7 @@ public void kullaniciSil(Long id){
 
 
     public Kullanici kullaniciEkle(Kullanici yeniKullanici){
-        yeniKullanici.setKullaniciSifresi(
-                passwordEncoder.encode(yeniKullanici.getKullaniciSifresi())
-        );
+        yeniKullanici.setKullaniciSifresi(passwordEncoder.encode(yeniKullanici.getKullaniciSifresi()));
         return repository.save(yeniKullanici);
     }
 }

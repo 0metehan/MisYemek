@@ -57,4 +57,13 @@ export class SiparisService extends BaseService {
   sepetTakipFirma(firmaId: number): Observable<any[]>{
     return this.get<any[]>(`Firma/SiparisTakip/${firmaId}`)
   }
+
+  firmaTeslimSayac(firmaId: string , yil: number , ay: number): Observable<any>{
+    return this.get<any>(`TeslimEdildiSayac/${firmaId}/${yil}/${ay}`)
+  }
+
+  firmaIptalSayac(firmaId: string , yil: number , ay: number): Observable<any>{
+    return this.get<any>(`IptalSayac/${firmaId}/${yil}/${ay}`)
+  }
+
 }

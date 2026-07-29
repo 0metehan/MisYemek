@@ -1,13 +1,17 @@
 <p-toast />
 <p-confirmPopup />
 
-<div class="flex align-items-center gap-2 mb-3">
-  <input type="text" pInputText placeholder="Ürün adı" [(ngModel)]="urunAdi" />
+<div class="flex align-items-center gap-3 mb-4" style="max-width: 50rem; margin: 0 auto;">
+  <input type="text" pInputText placeholder="Ürün adı" [(ngModel)]="urunAdi" class="flex-1" />
 
-  <p-inputNumber [(ngModel)]="urunFiyat" mode="currency" currency="TRY" locale="tr-TR" placeholder="Fiyat"
-    [style]="{ width: '10rem' }" />
+  <p-dropdown [options]="turler" [(ngModel)]="urunTuru"
+              placeholder="Tür seç" styleClass="w-10rem" />
 
-  <p-button icon="pi pi-plus" label="Ekle" (onClick)="firmaUrunKaydet()" [disabled]="!urunAdi || !urunFiyat" />
+  <p-inputNumber [(ngModel)]="urunFiyat" mode="currency" currency="TRY" locale="tr-TR"
+                 placeholder="Fiyat" inputStyleClass="w-8rem" />
+
+  <p-button icon="pi pi-plus" label="Ekle" (onClick)="firmaUrunKaydet()"
+            [disabled]="!urunAdi || !urunFiyat || !urunTuru" />
 </div>
 <p-dataView [value]="urunler" [rows]="5" [paginator]="true">
   <ng-template pTemplate="list" let-liste>
@@ -17,9 +21,7 @@
           [ngClass]="{ 'border-top-1 surface-border': !first }">
 
           <div class="flex align-items-center gap-3">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhEOJ_oIhhZQJJIFkRUznDulg-FaO1s6oFW7WvSBftiQ&s=10"
-              alt="ürün" class="border-round" style="width: 5rem" />
+            <img [src]="'assets/yemekler/' + item.urunler.urunTuru + '.jpg'" alt="ürün" class="border-round" style="width: 5rem" />
             <div class="text-lg font-medium text-900">{{ item.urunler.urun }}</div>
           </div>
 

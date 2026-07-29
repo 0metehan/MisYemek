@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { SHARED_IMPORTS } from '../shared/shared-imports';
 import { AuthService } from '../Service/auth.service';
+import { KullaniciService } from '../Service/kullanici.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,13 @@ export class LoginComponent {
 
   private router = inject(Router);
   private authService = inject(AuthService);
+  private kullaniciService = inject(KullaniciService);
 
   username: string = '';
   password: string = '';
+  TelNo: string = '';
   message: string = '';
+  kullaniciRol: string = ''
 
   login() {
     this.authService.login(this.username, this.password).subscribe({
@@ -33,4 +37,8 @@ export class LoginComponent {
 
     });
   }
+
+kullaniciEkle(){
+  this.router.navigate(['/KayitOl']);
+}
 }

@@ -50,6 +50,24 @@
         [showClear]="true" [filter]="true" styleClass="w-full" (ngModelChange)="urunSecildi()" />
     </div>
 
+<div class="mt-4 text-left">
+  <div class="font-bold mb-2">Kategori</div>
+
+  <div class="flex align-items-center gap-2 mb-2">
+    <p-radioButton name="kategori" [value]="''" [(ngModel)]="seciliTur" inputId="k-tumu"
+      (ngModelChange)="turSecildi(seciliTur)" />
+    <label for="k-tumu" class="cursor-pointer">Tümü</label>
+  </div>
+
+  @for (tur of turListesi; track tur) {
+    <div class="flex align-items-center gap-2 mb-2">
+      <p-radioButton name="kategori" [value]="tur" [(ngModel)]="seciliTur" [inputId]="'k-' + tur"
+        (ngModelChange)="turSecildi(seciliTur)" />
+      <label [for]="'k-' + tur" class="cursor-pointer">{{ turEtiketleri[tur] || tur }}</label>
+    </div>
+  }
+</div>
+
   </aside>
 
   <div class="flex flex-wrap gap-3 flex-1">

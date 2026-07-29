@@ -20,6 +20,9 @@ public class Urunler {
     @Column(name="urun_adi")
     private String urun;
 
+    @Column(name = "urun_turu")
+    private String urunTuru;
+
     public String getUrun() {
         return urun;
     }
@@ -34,5 +37,13 @@ public class Urunler {
 
     public void setUrunId(Integer urunId) {
         this.urunId = urunId;
+    }
+
+    public String getUrunTuru() {
+        return urunTuru;
+    }
+
+    public void setUrunTuru(String urunTuru) {
+        this.urunTuru = urunTuru;
     }
 }

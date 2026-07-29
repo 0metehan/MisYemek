@@ -51,7 +51,8 @@ public class SiparisService {
         return repository.toplamCiro(firmaId);
     }
 
-    public List<Siparis> sepetGetir(Long kullaniciId){return repository.findByKullaniciIdAndSiparisDurumu(kullaniciId, SEPETTE);}
+    public List<Siparis> sepetGetir(Long kullaniciId){
+        return repository.findByKullaniciIdAndSiparisDurumu(kullaniciId, SEPETTE);}
 
     @Transactional
     public List<Siparis> sepetGuncelle(Long kullaniciId){
@@ -101,5 +102,11 @@ public class SiparisService {
     public List<Object[]> firmaSiparisTakip (Long firmaId){
         return repository.firmaSiparisTakip(firmaId);
     }
+    public Long firmaTeslimSayac(Long firmaId , int yil , int ay ){
+        return repository.firmaTeslimSayac(firmaId,yil,ay);
+    }
 
+    public Long firmaIptalSayac(Long firmaId , int yil , int ay ){
+        return repository.firmaIptalSayac(firmaId,yil,ay);
+    }
 }
