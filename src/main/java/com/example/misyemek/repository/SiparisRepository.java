@@ -98,4 +98,7 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
     Long firmaIptalSayac(@Param("firmaId") Long firmaId,
                           @Param("yil") int yil,
                           @Param("ay") int ay);
+    @Query("SELECT COALESCE(MAX(s.grupNo), 0) FROM Siparis s")
+    Integer maxGrupNo();
+    List<Siparis> findByGrupNo(int grupNo);
 }

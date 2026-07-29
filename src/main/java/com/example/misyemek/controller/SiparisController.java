@@ -65,14 +65,14 @@ public class SiparisController {
         return service.sepetGuncelle(kullaniciId);
     }
 
-    @PutMapping("/Sepet/Onayla/{siparisId}")
-    public Siparis sepetOnayla(@PathVariable Long siparisId) {
-        return service.sepetOnayla(siparisId);
+    @PutMapping("/Sepet/Onayla/{grupNo}")
+    public List<Siparis> sepetOnayla(@PathVariable int grupNo) {
+        return service.sepetOnayla(grupNo);
     }
 
-    @PutMapping("/Sepet/Reddet/{siparisId}")
-    public Siparis sepetReddet(@PathVariable Long siparisId) {
-        return service.sepetReddet(siparisId);
+    @PutMapping("/Sepet/Reddet/{grupNo}")
+    public List<Siparis> sepetReddet(@PathVariable int grupNo) {
+        return service.sepetReddet(grupNo);
     }
 
     @GetMapping("/Kurye/Siparis")
@@ -80,14 +80,14 @@ public class SiparisController {
         return service.kuryeSiparis();
     }
 
-    @PutMapping("/Kurye/TeslimEdildi/{siparisId}")
-    public Siparis kuryeSiparisTeslimEdildi(@PathVariable Long siparisId) {
-        return service.kuryeSiparisTeslimEdildi(siparisId);
+    @PutMapping("/Kurye/TeslimEdildi/{grupNo}")
+    public List<Siparis> kuryeSiparisTeslimEdildi(@PathVariable int grupNo) {
+        return service.kuryeSiparisTeslimEdildi(grupNo);
     }
 
-    @PutMapping("/Kurye/Reddet/{siparisId}")
-    public Siparis kuryeSiparisReddet(@PathVariable Long siparisId) {
-        return service.kuryeSiparisReddet(siparisId);
+    @PutMapping("/Kurye/Reddet/{grupNo}")
+    public List<Siparis> kuryeSiparisReddet(@PathVariable int grupNo) {
+        return service.kuryeSiparisReddet(grupNo);
     }
 
     @GetMapping("/Firma/SiparisTakip/{firmaId}")

@@ -37,6 +37,8 @@ public class Siparis {
     @JoinColumn(name = "urun_firma_id", referencedColumnName = "firma_urun_id")
     private FirmaUrun firmaUrun;
 
+    @Column(name = "grup_no")
+    private int grupNo;
 
     public Long getSiparisId() {
         return siparisId;
@@ -84,5 +86,13 @@ public class Siparis {
 
     public void setFirmaUrun(FirmaUrun firmaUrun) {
         this.firmaUrun = firmaUrun;
+    }
+
+    public int getGrupNo() {
+        return grupNo;
+    }
+
+    public void setGrupNo(int grupNo) {
+        this.grupNo = grupNo;
     }
 }

@@ -57,46 +57,51 @@ public class SiparisService {
     @Transactional
     public List<Siparis> sepetGuncelle(Long kullaniciId){
         List<Siparis> sepet = repository.findByKullaniciIdAndSiparisDurumu(kullaniciId, SEPETTE);
+        int grupNo = repository.maxGrupNo() + 1;
         for (Siparis s : sepet) {
             s.setSiparisDurumu(SiparisDurumu.HAZIRLANIYOR);
+            s.setGrupNo(grupNo);
         }
+
         return repository.saveAll(sepet);
     }
 
-    public Siparis sepetOnayla(Long siparisId){
-        Siparis siparis = repository.findById(siparisId)
-                .orElseThrow(() -> new RuntimeException("sipariş bulunamadı"));
-
-        siparis.setSiparisDurumu(SiparisDurumu.YOLDA);
-        return repository.save(siparis);
+    @Transactional
+    public List<Siparis> sepetOnayla(int grupNo){
+        List<Siparis> siparisler = repository.findByGrupNo(grupNo);
+        for (Siparis s : siparisler) {
+            s.setSiparisDurumu(SiparisDurumu.YOLDA);
+        }
+        return repository.saveAll(siparisler);
     }
-
-    public Siparis sepetReddet(Long siparisId){
-        Siparis siparis = repository.findById(siparisId)
-                .orElseThrow(() -> new RuntimeException("sipariş bulunamadı"));
-
-        siparis.setSiparisDurumu(SiparisDurumu.IPTAL);
-        return repository.save(siparis);
+    @Transactional
+    public List<Siparis> sepetReddet(int grupNo){
+    List<Siparis> siparisler =repository.findByGrupNo(grupNo);
+    for (Siparis s : siparisler) {
+        s.setSiparisDurumu(SiparisDurumu.IPTAL);
+    }
+    return repository.saveAll(siparisler);
     }
 
     public List<Object[]> kuryeSiparis(){
         return repository.kuryeSiparis();
     }
 
-    public Siparis kuryeSiparisTeslimEdildi(Long siparisId){
-        Siparis siparis = repository.findById(siparisId)
-                .orElseThrow(() -> new RuntimeException("siparis bulunamadı"));
-
-        siparis.setSiparisDurumu(SiparisDurumu.TESLIM_EDILDI);
-        return repository.save(siparis);
+    @Transactional
+    public List<Siparis> kuryeSiparisTeslimEdildi(int grupNo){
+        List<Siparis> siparisler = repository.findByGrupNo(grupNo);
+    for (Siparis s : siparisler) {
+        s.setSiparisDurumu(SiparisDurumu.TESLIM_EDILDI);
+    }
+        return repository.saveAll(siparisler);
     }
 
-    public Siparis kuryeSiparisReddet(Long siparisId){
-        Siparis siparis = repository.findById(siparisId)
-                .orElseThrow(() -> new RuntimeException("siparis bulunamadı"));
-
-        siparis.setSiparisDurumu(SiparisDurumu.IPTAL);
-        return repository.save(siparis);
+    public List<Siparis> kuryeSiparisReddet(int grupNo){
+        List<Siparis> siparis = repository.findByGrupNo(grupNo);
+        for (Siparis s : siparis) {
+            s.setSiparisDurumu(SiparisDurumu.IPTAL);
+        }
+        return repository.saveAll(siparis);
     }
 
     public List<Object[]> firmaSiparisTakip (Long firmaId){
