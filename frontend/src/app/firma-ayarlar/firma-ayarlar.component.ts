@@ -67,8 +67,8 @@ export class FirmaAyarlarComponent {
   }
   
   aySecildi() {
-  this.yil = this.seciliTarih.getFullYear();   // 2026
-  this.ay  = this.seciliTarih.getMonth() + 1;  // Temmuz → 7
+  this.yil = this.seciliTarih.getFullYear();   
+  this.ay  = this.seciliTarih.getMonth() + 1;  
   this.firmaUrunAylikKazanc();
   this.firmaTeslimSayac();
   this.firmaIptalSayac();

@@ -40,6 +40,9 @@ public class Siparis {
     @Column(name = "grup_no")
     private int grupNo;
 
+    @Column(name="yildiz_sayisi")
+    private Integer yildizSayisi;
+
     public Long getSiparisId() {
         return siparisId;
     }
@@ -94,5 +97,13 @@ public class Siparis {
 
     public void setGrupNo(int grupNo) {
         this.grupNo = grupNo;
+    }
+
+    public Integer getYildizSayisi() {
+        return yildizSayisi;
+    }
+
+    public void setYildizSayisi(Integer yildizSayisi) {
+        this.yildizSayisi = yildizSayisi;
     }
 }

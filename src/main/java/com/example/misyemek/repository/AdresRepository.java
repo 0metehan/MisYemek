@@ -20,7 +20,8 @@ public interface AdresRepository extends JpaRepository<Adres, Long> {
             "WHEN ka.ilce = fa.ilce THEN 'ilçe' " +
             "ELSE 'şehir' " +
             "END AS yakinlik_derecesi, " +
-            "f.firma_id " +
+            "f.firma_id, " +
+            "f.puan_ortalama " +
             "FROM kullanici k " +
             "INNER JOIN adres ka ON k.kullanici_adres_id = ka.adres_id " +
             "INNER JOIN adres fa ON ka.sehir = fa.sehir " +
@@ -42,7 +43,8 @@ public interface AdresRepository extends JpaRepository<Adres, Long> {
             "WHEN ka.ilce = fa.ilce THEN 'ilçe' " +
             "ELSE 'şehir' " +
             "END AS yakinlik_derecesi, " +
-            "f.firma_id " +
+            "f.firma_id, " +
+            "f.puan_ortalama " +
             "FROM kullanici k " +
             "INNER JOIN adres ka ON k.kullanici_adres_id = ka.adres_id " +
             "INNER JOIN adres fa ON ka.sehir = fa.sehir " +

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { BaseService } from '../core/services/base.service';
 
     @Injectable({providedIn: 'root'})
-export class SiparisService extends BaseService {
+  export class SiparisService extends BaseService {
   protected baseUrl = '/Siparisler';
 
   sepetGetir(): Observable<any[]> {
@@ -42,12 +42,12 @@ export class SiparisService extends BaseService {
     return this.get<any[]>(`Kurye/Siparis`)
   }
 
-  kuryeSiparisOnayla(siparisId: number ): Observable<any>{
-    return this.put<any>(`Kurye/TeslimEdildi/${siparisId}` , {})
+  kuryeSiparisOnayla(firmaId: number , grupNo: number ): Observable<any>{
+    return this.put<any>(`Kurye/TeslimEdildi/${firmaId}/${grupNo}` , {})
   }
 
-  kuryeSiparisReddet(siparisId: number): Observable<any>{
-    return this.put<any>(`Kurye/Reddet/${siparisId}` , {})
+  kuryeSiparisReddet(firmaId: number , grupNo: number): Observable<any>{
+    return this.put<any>(`Kurye/Reddet/${firmaId}/${grupNo}` , {})
   } 
 
   sepetTakip(): Observable<any[]>{
@@ -64,6 +64,14 @@ export class SiparisService extends BaseService {
 
   firmaIptalSayac(firmaId: string , yil: number , ay: number): Observable<any>{
     return this.get<any>(`IptalSayac/${firmaId}/${yil}/${ay}`)
+  }
+
+  yildizSay(firmaId: string): Observable <any>{
+    return this.get<any>(`Firma/YildizSayisi/${firmaId}`)
+  }
+
+  yildizEkle(firmaId: number , grupNo: number , yildizSayisi: number): Observable<any>{
+    return this.put<any>(`Firma/YildizEkle/${firmaId}/${grupNo}/${yildizSayisi}`,{})
   }
 
 }

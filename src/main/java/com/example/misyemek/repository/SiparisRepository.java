@@ -12,6 +12,11 @@ import java.util.List;
 
 public interface SiparisRepository extends JpaRepository<Siparis,Long>{
 
+    List<Siparis> findByGrupNoAndFirmaUrun_FirmaId(int grupNo ,Long firmaId);
+    List<Siparis> findByKullaniciIdAndSiparisDurumu(Long kullaniciId, SiparisDurumu siparisDurumu);
+    boolean existsByFirmaUrunId(Long firmaUrunId);
+    List<Siparis> findByKullaniciId(Long kullaniciId);
+
     @Query("SELECT COALESCE(SUM(s.adet * s.firmaUrun.fiyat), 0) " +
             "FROM Siparis s " +
             "WHERE s.kullaniciId = :kullaniciId " +
@@ -19,7 +24,6 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
             "AND s.siparisDurumu = com.example.misyemek.Enum.SiparisDurumu.TESLIM_EDILDI")
     BigDecimal toplamHarcama(@Param("kullaniciId") Long kullaniciId,
                              @Param("firmaId") Long firmaId);
-
 
     @Query("SELECT COALESCE(SUM(s.adet * s.firmaUrun.fiyat), 0) " +
             "FROM Siparis s " +
@@ -53,7 +57,7 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
             "AND s.siparisDurumu = com.example.misyemek.Enum.SiparisDurumu.HAZIRLANIYOR ")
     List<Object[]> firmaIdSiparisGetir (@Param("firmaId") Long firmaId);
 
-    @Query("SELECT s.siparisId , u.urun , s.adet , k.kullaniciAdi , a.mahalle, a.ilce, a.sehir , k.kullaniciTelNo , f.firmaAd ,f.firmaTelNo  " +
+    @Query("SELECT s.siparisId , u.urun , s.adet , k.kullaniciAdi , a.mahalle, a.ilce, a.sehir , k.kullaniciTelNo , f.firmaAd ,f.firmaTelNo , s.grupNo , f.firmaId " +
             "FROM Siparis s " +
             "JOIN s.firmaUrun fu " +
             "JOIN fu.urunler u " +
@@ -73,11 +77,7 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
             "ORDER BY s.siparisId DESC")
     List<Object[]> firmaSiparisTakip(@Param("firmaId") Long firmaId);
 
-    List<Siparis> findByKullaniciIdAndSiparisDurumu(Long kullaniciId, SiparisDurumu siparisDurumu);
-    boolean existsByFirmaUrunId(Long firmaUrunId);
-    List<Siparis> findByKullaniciId(Long kullaniciId);
-
-    @Query("SELECT COUNT(s) " +
+    @Query("SELECT COUNT(DISTINCT s.grupNo) " +
             "FROM Siparis s " +
             "JOIN s.firmaUrun fu " +
             "WHERE fu.firmaId = :firmaId " +
@@ -88,7 +88,7 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
                           @Param("yil") int yil,
                           @Param("ay") int ay);
 
-    @Query("SELECT COUNT(s) " +
+    @Query("SELECT COUNT(DISTINCT s.grupNo) " +
             "FROM Siparis s " +
             "JOIN s.firmaUrun fu " +
             "WHERE fu.firmaId = :firmaId " +
@@ -98,7 +98,15 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
     Long firmaIptalSayac(@Param("firmaId") Long firmaId,
                           @Param("yil") int yil,
                           @Param("ay") int ay);
+
     @Query("SELECT COALESCE(MAX(s.grupNo), 0) FROM Siparis s")
     Integer maxGrupNo();
-    List<Siparis> findByGrupNo(int grupNo);
+
+    @Query("SELECT COALESCE(AVG(s.yildizSayisi)) " +
+            "FROM Siparis s " +
+            "JOIN s.firmaUrun fu " +
+            "WHERE fu.firmaId= :firmaId " +
+            "AND s.siparisDurumu != com.example.misyemek.Enum.SiparisDurumu.IPTAL")
+    Double yildizSay(@Param("firmaId") Long firmaId);
+
 }

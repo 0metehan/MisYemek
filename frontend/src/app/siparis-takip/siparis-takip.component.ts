@@ -15,6 +15,7 @@ export class SiparisTakipComponent {
   private siparisService = inject(SiparisService)
 
   takip: any[]=[];
+  yildiz: any[]=[];
 
   ngOnInit(){
   this.sepetTakip();
@@ -22,6 +23,7 @@ export class SiparisTakipComponent {
 
   sepetTakip(){
   this.siparisService.sepetTakip().subscribe(data => {
+    console.log(data);
     this.takip = data.filter((s: any) => s.siparisDurumu !== 'SEPETTE');
   });
 }
@@ -39,5 +41,10 @@ export class SiparisTakipComponent {
     case 'TESLIM_EDILDI':  return 2;
     default:               return 0;
   }
+}
+
+yildizPuan(s:any , yildiz:number ){
+  this.siparisService.yildizEkle(s.firmaUrun.firmaId ,s.grupNo ,yildiz).subscribe(data =>{
+  this.sepetTakip();  } )
 }
 }

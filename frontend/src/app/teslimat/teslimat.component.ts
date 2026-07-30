@@ -25,18 +25,42 @@ export class TeslimatComponent {
   }
   
   kuryeSiparis(){
-    this.siparisService.kuryeSiparis().subscribe(data => this.sepet = data)
-  }
+  this.siparisService.kuryeSiparis().subscribe(data => this.sepet = this.grupla(data))
+}
 
-  kuryeSiprisOnay(siparisId: number) {
-    this.siparisService.kuryeSiparisOnayla(siparisId).subscribe(() => {
+private grupla(data: any[]): any[] {
+  const gruplar: { [anahtar: string]: any } = {};
+  for (const s of data) {
+    const anahtar = s[11] + '-' + s[10];        
+    if (!gruplar[anahtar]) {
+      gruplar[anahtar] = {
+        siparisId: s[0],
+        firmaId: s[11], 
+        grupNo: s[10],
+        kullaniciAdi: s[3],
+        mahalle: s[4], 
+        ilce: s[5], 
+        sehir: s[6],
+        kullaniciTelNo: s[7],
+        firmaAd: s[8], 
+        firmaTelNo: s[9],
+        urunler: []
+      };
+    }
+    gruplar[anahtar].urunler.push({ siparisId: s[0], urun: s[1], adet: s[2] });
+  }
+  return Object.values(gruplar);
+}
+
+  kuryeSiprisOnay(firmaId: number , grupNo: number) {
+    this.siparisService.kuryeSiparisOnayla(firmaId , grupNo).subscribe(() => {
       this.acikIndex = null;
       this.kuryeSiparis();
     })
   }
 
-  kuryeSiparisReddet(siparisId: number){
-    this.siparisService.kuryeSiparisReddet(siparisId).subscribe(() => {
+  kuryeSiparisReddet(firmaId: number , grupNo: number){
+    this.siparisService.kuryeSiparisReddet(firmaId ,grupNo).subscribe(() => {
       this.acikIndex = null;
       this.kuryeSiparis();
     })

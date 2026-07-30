@@ -1,27 +1,28 @@
 <div class="flex flex-wrap justify-content-center align-items-start gap-4 p-3">
-  @for(s of sepet; track $index ){
+  @for(s of sepet; track $index){
   <div class="flex align-items-stretch">
 
-  
     <p-card [style]="{ width: '300px' }">
-        <ng-template pTemplate="header">
-          <div class="flex justify-content-between align-items-center px-3 pt-3">
-            <span class="text-xl font-bold">#{{ s[0] }}</span>
-            <p-tag value="YOLDA" severity="info" />
-          </div>
-        </ng-template>
+      <ng-template pTemplate="header">
+        <div class="flex justify-content-between align-items-center px-3 pt-3">
+          <span class="text-xl font-bold">#{{ s.siparisId }} - {{s.grupNo}}</span>
+          <p-tag value="YOLDA" severity="info" />
+        </div>
+      </ng-template>
 
-        <p class="text-lg font-medium m-0">{{ s[1] }} <span class="text-500">x{{ s[2] }}</span></p>
-        <p class="text-sm text-500 mt-2 mb-0">
-          <i class="pi pi-map-marker mr-1"></i>{{ s[4] }} / {{ s[5] }} / {{ s[6] }}
-        </p>
+      @for(u of s.urunler; track u.siparisId){
+        <p class="text-lg font-medium m-0">{{ u.urun }} <span class="text-500">x{{ u.adet }}</span></p>
+      }
+      <p class="text-sm text-500 mt-2 mb-0">
+        <i class="pi pi-map-marker mr-1"></i>{{ s.mahalle }} / {{ s.ilce }} / {{ s.sehir }}
+      </p>
 
-        <ng-template pTemplate="footer">
-          <p-button [label]="acikIndex === $index ? 'Kapat' : 'Sipariş Detayları'"
-                    [icon]="acikIndex === $index ? 'pi pi-chevron-left' : 'pi pi-chevron-right'"
-                    iconPos="right" styleClass="w-full"
-                    (onClick)="detayToggle($index)" />
-        </ng-template>
+      <ng-template pTemplate="footer">
+        <p-button [label]="acikIndex === $index ? 'Kapat' : 'Sipariş Detayları'"
+                  [icon]="acikIndex === $index ? 'pi pi-chevron-left' : 'pi pi-chevron-right'"
+                  iconPos="right" styleClass="w-full"
+                  (onClick)="detayToggle($index)" />
+      </ng-template>
     </p-card>
 
     @if(acikIndex === $index){
@@ -31,31 +32,35 @@
 
         <div class="flex justify-content-between align-items-center mb-3">
           <h3 class="m-0">Sipariş Detayı</h3>
-          <p-tag [value]="'#' + s[0]" severity="secondary" />
+          <p-tag [value]="'#' + s.grupNo" severity="secondary" />
         </div>
 
+        @for(u of s.urunler; track u.siparisId){
+          <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
+            <span class="text-500">Ürün</span><b>{{ u.urun }} x{{ u.adet }}</b>
+          </div>
+        }
         <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
-          <span class="text-500">Ürün</span><b>{{ s[1] }} x{{ s[2] }}</b>
+          <span class="text-500">Müşteri</span><b>{{ s.kullaniciAdi }}</b>
         </div>
         <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
-          <span class="text-500">Müşteri</span><b>{{ s[3] }}</b>
+          <span class="text-500">Müşteri Adres</span><b class="text-right">{{ s.mahalle }} / {{ s.ilce }} / {{ s.sehir }}</b>
         </div>
         <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
-          <span class="text-500">Müşteri Adres </span><b class="text-right">{{ s[4] }} / {{ s[5] }} / {{ s[6] }}</b>
+          <span class="text-500">Müşteri Telefon</span><b>{{ s.kullaniciTelNo }}</b>
         </div>
         <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
-          <span class="text-500">Müşteri Telefon</span><b>{{ s[7] }}</b>
+          <span class="text-500">Firma</span><b>{{ s.firmaAd }}</b>
         </div>
-        <div class="flex justify-content-between py-2 border-bottom-1 surface-border">
-          <span class="text-500">Firma</span><b>{{ s[8] }}</b>
-        </div>
-         <div class="flex justify-content-between py-2">
-          <span class="text-500">Firma Telefon</span><b>{{ s[9] }}</b>
+        <div class="flex justify-content-between py-2">
+          <span class="text-500">Firma Telefon</span><b>{{ s.firmaTelNo }}</b>
         </div>
 
         <div class="flex gap-2 mt-4">
-          <p-button label="Teslim Edildi" icon="pi pi-check" severity="success" styleClass="w-full" (onClick)="kuryeSiprisOnay(s[0])"/>
-          <p-button label="İptal" icon="pi pi-times" severity="danger" [outlined]="true" styleClass="w-full" (onClick)="kuryeSiparisReddet(s[0])"/>
+          <p-button label="Teslim Edildi" icon="pi pi-check" severity="success" styleClass="w-full"
+                    (onClick)="kuryeSiprisOnay(s.firmaId, s.grupNo)"/>
+          <p-button label="İptal" icon="pi pi-times" severity="danger" [outlined]="true" styleClass="w-full"
+                    (onClick)="kuryeSiparisReddet(s.firmaId, s.grupNo)"/>
         </div>
       </div>
     }

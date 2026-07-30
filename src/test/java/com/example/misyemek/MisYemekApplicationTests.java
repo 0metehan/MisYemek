@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MisYemekApplicationTests {
 
     @Test
-    void contextLoads() {
+    void sifreHashle() {
+        System.out.println(new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder()
+                .encode("1234"));   // istediğin şifreyi yaz
     }
 
 }

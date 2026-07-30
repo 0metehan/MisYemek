@@ -32,6 +32,17 @@ public class Firma {
     @JoinColumn(name = "firma_adres_id" , insertable = false, updatable = false)
     private Adres adres;
 
+    @Column(name="puan_ortalama")
+    private Double puanOrtalama;
+
+    public Double getPuanOrtalama() {
+        return puanOrtalama;
+    }
+
+    public void setPuanOrtalama(Double puanOrtalama) {
+        this.puanOrtalama = puanOrtalama;
+    }
+
     public String getFirmaTelNo() {
         return firmaTelNo;
     }
