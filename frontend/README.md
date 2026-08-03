@@ -1,27 +1,108 @@
-# Frontend
+# MisYemek
+Kullanıcıların yemek siparişi verdiği, firma sahiplerinin siparişleri yönettiği ve kuryelerin teslimatı üstlendiği uçtan uca bir yemek sipariş ve takip uygulaması.
+## Özellikler
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+### Kullanıcı
+- Kayıt olma ve giriş yapma (JWT tabanlı kimlik doğrulama)
+- Adrese ve yakınlığa (mahalle / ilçe / şehir) göre firma listeleme
+- Ürün ve kategoriye göre filtreleme, restoran arama
+- Firmaları en yüksek puana (yıldıza) göre sıralama
+- Sepete ürün ekleme ve sipariş verme
+- Verilen siparişleri anlık olarak takip etme
+- Firmalara puan verme (değerlendirme)
+- Şifre değiştirme ve profil bilgilerini görüntüleme
 
-## Development server
+### Firma Sahibi (Admin)
+- Gelen siparişleri görüntüleme ve durumunu güncelleme
+- Sipariş takibi yapma
+- Aylık kazanç bilgisini görüntüleme
+- Teslim edilen ve iptal edilen sipariş sayılarını takip etme
+- Firma bilgilerini ve ürünlerini yönetme
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Kurye
+- Kendisine atanan teslimatları görüntüleme
+- Teslimatları tamamlama ve durum güncelleme
+- Kurye ayarlarını düzenleme
 
-## Code scaffolding
+### Genel
+- Anlık bildirim sistemi
+- Rol bazlı yetkilendirme (Kullanıcı / Firma Sahibi / Kurye)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Kullanılan Teknolojiler
 
-## Build
+**Backend**
+-Java (V.21)
+-Spring Boot
+-Spring Security(JWT Tabanlı)
+-Spring Data JPA / Hibernate
+-MySQL
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**Frontend**
+-Angular(V.17)
+-PrimeNG / PrimeFlex
 
-## Running unit tests
+## Kurulum
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Gereksinimler
+- Java 17+
+- Node.js ve npm
+- MySQL
 
-## Running end-to-end tests
+### Veritabanı
+1. MySQL üzerinde bir veritabanı oluşturun.
+2. `src/main/resources/application.properties` dosyasındaki bağlantı bilgilerini kendi ayarlarınıza göre güncelleyin:
+​```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/misyemek
+spring.datasource.username=KULLANICI_ADI
+spring.datasource.password=SIFRE
+​```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Backend'i Çalıştırma
+​```bash
+mvn spring-boot:run
+​```
+Uygulama varsayılan olarak `http://localhost:8080` üzerinde çalışır.
 
-## Further help
+### Frontend'i Çalıştırma
+​```bash
+cd frontend
+npm install
+npm start
+​```
+Arayüz `http://localhost:4200` üzerinde açılır.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Ekran Görüntüleri
+
+### Giriş Ekranı 
+![](docs/login.png)
+
+### Kayıt OL
+![](docs/Kayit_Ol.png)
+
+### Ana Ekran
+![](docs/Ana_Ekran.png)
+
+### Hesap Sayfası
+![](docs/Kullanici_Hesap.png)
+
+### Sepet Ekranı
+![](docs/sepet.png)
+
+### Kullanıcı Sipariş Takip ve Yıldız Sistemi
+![](docs/Siparişler.png)
+
+### Firma Ayarları
+![](docs/Firma_Yönetim_Ekran.png)
+
+### Firma Ürün Düzenleme Ekranı 
+![](docs/Firma_Urun.png)
+
+### Firma Sipariş Onaylama ve Reddetme Ekranı
+![](docs/Firma_Siparis_Onayla.png)
+
+### Firma Sipariş Takip Ekranı
+![](docs/Firma_Siparis_Takip.png)
+
+### Kurye Teslimat Ekranı
+![](docs/Kurye_Teslimat_Ekrani.png)
