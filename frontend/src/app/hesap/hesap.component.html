@@ -16,14 +16,20 @@
     <div class="mt-4 text-left px-3">
       <div class="font-bold mb-2">Mis Puan {{ toplam | number:'1.2-2' }}</div>
       <div class="font-bold mb-2">Önceki Siparişlerim</div>
-      @for (s of siparisler; track s[0]) {
-      <div class="mb-2">
-        <div class="text-sm font-medium">{{s[1] }} x{{s[3]}} -- {{s[5] * s[3]}} ₺</div>
-        <div class="text-xs text-color-secondary">
-          {{ s[2] }} -- {{ s[4] | date:'dd.MM.yyyy' }}
-        </div>
-      </div>
-      } @empty {
+
+      @if (siparisler.length > 0) {
+      <p-scroller [items]="siparisler" [itemSize]="56" scrollHeight="300px"
+        styleClass="border-1 surface-border border-round" [style]="{ width: '100%', height: '300px' }">
+        <ng-template pTemplate="item" let-s let-options="options">
+          <div class="p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 56px;">
+            <div class="text-sm font-medium">{{ s[1] }} x{{ s[3] }} -- {{ s[5] * s[3] }} ₺</div>
+            <div class="text-xs text-color-secondary">
+              {{ s[2] }} -- {{ s[4] | date:'dd.MM.yyyy' }}
+            </div>
+          </div>
+        </ng-template>
+      </p-scroller>
+      } @else {
       <div class="text-sm text-color-secondary">Sipariş Yok.</div>
       }
     </div>
@@ -42,9 +48,8 @@
           <div class="flex gap-2 align-items-center">
             <input type="text" [(ngModel)]="hesap.kullaniciAdi" pInputText />
             <p-button icon="pi pi-check" label="Kaydet"
-                      (click)="kullaniciGuncelleOnay($event); adInplace.deactivate()" />
-            <p-button icon="pi pi-times" severity="danger" [text]="true"
-                      (click)="adInplace.deactivate()" />
+              (click)="kullaniciGuncelleOnay($event); adInplace.deactivate()" />
+            <p-button icon="pi pi-times" severity="danger" [text]="true" (click)="adInplace.deactivate()" />
           </div>
         </ng-template>
       </p-inplace>
@@ -60,9 +65,8 @@
           <div class="flex gap-2 align-items-center">
             <input type="text" [(ngModel)]="hesap.kullaniciTelNo" pInputText />
             <p-button icon="pi pi-check" label="Kaydet"
-                      (click)="kullaniciGuncelleOnay($event); telInplace.deactivate()" />
-            <p-button icon="pi pi-times" severity="danger" [text]="true"
-                      (click)="telInplace.deactivate()" />
+              (click)="kullaniciGuncelleOnay($event); telInplace.deactivate()" />
+            <p-button icon="pi pi-times" severity="danger" [text]="true" (click)="telInplace.deactivate()" />
           </div>
         </ng-template>
       </p-inplace>
@@ -82,10 +86,8 @@
             <input type="text" [(ngModel)]="hesap.adres.ilce" pInputText placeholder="İlçe" />
             <input type="text" [(ngModel)]="hesap.adres.sehir" pInputText placeholder="Şehir" />
             <div class="flex gap-2 align-items-center">
-              <p-button icon="pi pi-check" label="Kaydet"
-          (click)="kullaniciGuncelleOnay($event, adresInplace)" />
-<p-button icon="pi pi-times" severity="danger" [text]="true"
-          (click)="adresInplace.deactivate()" />
+              <p-button icon="pi pi-check" label="Kaydet" (click)="kullaniciGuncelleOnay($event, adresInplace)" />
+              <p-button icon="pi pi-times" severity="danger" [text]="true" (click)="adresInplace.deactivate()" />
             </div>
           </div>
         </ng-template>
@@ -101,10 +103,8 @@
         <ng-template pTemplate="content">
           <div class="flex gap-2 align-items-center">
             <input type="password" [(ngModel)]="yeniSifre" pInputText placeholder="Yeni şifre" />
-                 <p-button icon="pi pi-check" label="Kaydet"
-          (click)="kullaniciSifreOnay($event, adresInplace)" />
-<p-button icon="pi pi-times" severity="danger" [text]="true"
-          (click)="adresInplace.deactivate()" />
+            <p-button icon="pi pi-check" label="Kaydet" (click)="kullaniciSifreOnay($event, adresInplace)" />
+            <p-button icon="pi pi-times" severity="danger" [text]="true" (click)="adresInplace.deactivate()" />
           </div>
         </ng-template>
       </p-inplace>

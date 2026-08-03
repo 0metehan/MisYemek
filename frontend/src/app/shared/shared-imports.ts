@@ -27,6 +27,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { StepsModule } from 'primeng/steps';
 import { CalendarModule } from 'primeng/calendar';
 import { RatingModule } from 'primeng/rating';
+import { ScrollerModule } from 'primeng/scroller';
+import { FieldsetModule } from 'primeng/fieldset';
 
 export const SHARED_IMPORTS = [
   InputTextModule,       
@@ -59,4 +61,6 @@ export const SHARED_IMPORTS = [
   StepsModule,
   CalendarModule,
   RatingModule,
+  ScrollerModule,
+  FieldsetModule,
 ];

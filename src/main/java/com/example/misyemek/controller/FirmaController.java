@@ -49,4 +49,9 @@ public class FirmaController {
     public void firmaSil (@PathVariable Long firmaId){
         service.firmaSil(firmaId);
     }
+
+    @GetMapping("/YildizaGoreSirala/{kullaniciId}")
+    public List<Object[]> yildizaGoreSirala (@PathVariable Long kullaniciId){
+        return service.yildizaGoreSirala(kullaniciId);
+    }
 }

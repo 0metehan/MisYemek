@@ -1,21 +1,24 @@
-<div class="flex align-items-center justify-content-center min-h-screen">
-  <div class="flex flex-column gap-3">
-    <div class="flex flex-column gap-2">
-      <label class="font-bold" for="username">Kullanıcı Adı</label>
-      <input pInputText id="username" type="text" [(ngModel)]="username" name="username" />
-    </div>
+<div class="flex align-items-center justify-content-center min-h-screen gap-4">
 
-    <div class="flex flex-column gap-2">
-      <label class="font-bold" for="password">Şifre</label>
-      <input pInputText id="password" type="password" [(ngModel)]="password" name="password" />
-    </div>
-
-    <p-button label="Login" icon="pi pi-user" (onClick)="login()" />
-
-<p-button label="Kayıt Ol" icon="pi pi-user-plus" (onClick)="kullaniciEkle()" />
-
-    <p>{{ message }}</p>
+  <div class="flex flex-column align-items-center gap-2">
+    <img src="assets/foto/2.jpg" alt="MisYemek" style="width: 90px; height: auto;" />
+    <div class="text-2xl font-bold">Hoş Geldiniz</div>
   </div>
-</div>
 
-<router-outlet></router-outlet>
+  <p-card [style]="{ width: '260px' }">
+    <div class="flex flex-column gap-3">
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="username">Kullanıcı Adı</label>
+        <input pInputText id="username" type="text" [(ngModel)]="username" name="username" />
+      </div>
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="password">Şifre</label>
+        <input pInputText id="password" type="password" [(ngModel)]="password" name="password" />
+      </div>
+      <p-button label="Login" icon="pi pi-user" (onClick)="login()" />
+      <p-button label="Kayıt Ol" icon="pi pi-user-plus" (onClick)="kullaniciEkle()" />
+      <p>{{ message }}</p>
+    </div>
+  </p-card>
+
+</div>

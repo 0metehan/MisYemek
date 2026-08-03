@@ -1,52 +1,51 @@
 <div class="grid p-4">
 
   @for(s of takip; track s.siparisId){
-    <div class="col-12 md:col-6">
-      <p-card [style]="{ width: '100%' }" styleClass="shadow-2 border-round-xl h-full">
+  <div class="col-12 md:col-6">
+    <p-card [style]="{ width: '100%' }" styleClass="shadow-2 border-round-xl h-full">
 
-        <!-- Başlık: sipariş no + durum etiketi -->
-        <div class="flex justify-content-between align-items-center mb-4">
-          <div class="flex align-items-center gap-2">
-            <i class="pi pi-shopping-bag text-2xl text-primary"></i>
-            <span class="text-xl font-bold">Sipariş #{{ s.siparisId }}</span>
-          </div>
-          <p-tag
-            [value]="s.siparisDurumu === 'HAZIRLANIYOR' ? 'Hazırlanıyor'
+
+      <div class="flex justify-content-between align-items-center mb-4">
+        <div class="flex align-items-center gap-2">
+          <i class="pi pi-shopping-bag text-2xl text-primary"></i>
+          <span class="text-xl font-bold">{{ s.firmaAd }}</span>
+        </div>
+        <p-tag [value]="s.siparisDurumu === 'HAZIRLANIYOR' ? 'Hazırlanıyor'
                    : s.siparisDurumu === 'YOLDA' ? 'Yolda'
-                   : s.siparisDurumu === 'TESLIM_EDILDI' ? 'Teslim Edildi' : 'İptal Edildi'"
-            [severity]="s.siparisDurumu === 'HAZIRLANIYOR' ? 'warning'
+                   : s.siparisDurumu === 'TESLIM_EDILDI' ? 'Teslim Edildi' : 'İptal Edildi'" [severity]="s.siparisDurumu === 'HAZIRLANIYOR' ? 'warning'
                       : s.siparisDurumu === 'YOLDA' ? 'info'
                       : s.siparisDurumu === 'TESLIM_EDILDI' ? 'success' : 'danger'" />
-        </div>
+      </div>
 
-        <!-- Durum akışı (iptal değilse adım çubuğu) -->
-        @if(s.siparisDurumu === 'IPTAL'){
-          <div class="flex align-items-center justify-content-center gap-2 py-3 text-red-500">
-            <i class="pi pi-times-circle text-xl"></i>
-            <span class="font-medium">Bu sipariş iptal edildi</span>
-          </div>
-        } @else {
-          <p-steps [model]="durumAdimlari"
-                   [activeIndex]="durumIndex(s.siparisDurumu)"
-                   [readonly]="true" />
-        }
 
-        <!-- Değerlendirme (sadece teslim edilenlerde) -->
-        @if(s.siparisDurumu === 'TESLIM_EDILDI'){
-          <p-divider />
-          <div class="flex flex-column align-items-center gap-2">
-            <span class="text-sm text-color-secondary">Siparişini değerlendir</span>
-            <p-rating [(ngModel)]="s.yildizSayisi" (onRate)="yildizPuan(s, $event.value)" />
-          </div>
-        }
+      @if(s.siparisDurumu === 'IPTAL'){
+      <div class="flex align-items-center justify-content-center gap-2 py-3 text-red-500">
+        <i class="pi pi-times-circle text-xl"></i>
+        <span class="font-medium">Bu sipariş iptal edildi</span>
+      </div>
+      } @else {
+      <p-steps [model]="durumAdimlari" [activeIndex]="durumIndex(s.siparisDurumu)" [readonly]="true" />
+      }
 
-      </p-card>
-    </div>
+      <ul class="list-none p-0 mt-3">
+        @for(u of s.urunler; track u.urun){
+        <li class="flex justify-content-between text-sm py-1">
+          <span>{{ u.urun }}</span><span>x{{ u.adet }}</span>
+        </li>}
+      </ul>
+      @if(s.siparisDurumu === 'TESLIM_EDILDI'){
+      <p-divider />
+      <div class="flex flex-column align-items-center gap-2">
+        <span class="text-sm text-color-secondary">Siparişini değerlendir</span>
+        <p-rating [(ngModel)]="s.yildizSayisi" (onRate)="yildizPuan(s, $event.value)" />
+      </div>
+      }
+    </p-card>
+  </div>
   }
 
-  <!-- Hiç sipariş yoksa -->
   @if(takip.length === 0){
-    <div class="col-12 text-center text-color-secondary mt-5">Henüz siparişiniz yok.</div>
+  <div class="col-12 text-center text-color-secondary mt-5">Henüz siparişiniz yok.</div>
   }
 
 </div>

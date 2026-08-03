@@ -11,6 +11,8 @@
 
   <aside class="flex-shrink-0 sticky top-4 px-6" style="width: 22rem; margin-top: -1rem">
 
+<p-card [style]="{ width: '260px' }" >
+
     <div class="flex align-items-center gap-3">
       <i class="pi pi-user flex-shrink-0" style="font-size: 2.5rem"></i>
       <div class="text-left">
@@ -21,8 +23,10 @@
         </div>
       </div>
     </div>
-
-    <div class="mt-4 text-left">
+  </p-card>
+<p> </p>
+  <p-card [style]="{ width: '260px' }">
+    <div class="text-left">
       <div class="font-bold mb-3">Yakınlık</div>
 
       <div class="flex align-items-center gap-2 mb-2">
@@ -42,7 +46,16 @@
           (ngModelChange)="adresFiltrele()" />
         <label for="y-mahalle" class="cursor-pointer">Aynı mahalle</label>
       </div>
+
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="yakinlik" value="puan" [(ngModel)]="secim" inputId="y-puan"
+          (ngModelChange)="yildizaGoreSirala()" />
+        <label for="y-puan" class="cursor-pointer">En Yüksek Puan</label>
+      </div>
+
     </div>
+
+
 
     <div class="mt-4 text-left">
       <div class="font-bold mb-2">Yemek</div>
@@ -50,42 +63,44 @@
         [showClear]="true" [filter]="true" styleClass="w-full" (ngModelChange)="urunSecildi()" />
     </div>
 
-<div class="mt-4 text-left">
-  <div class="font-bold mb-2">Kategori</div>
+    <div class="mt-4 text-left">
+      <div class="font-bold mb-2">Kategori</div>
 
-  <div class="flex align-items-center gap-2 mb-2">
-    <p-radioButton name="kategori" [value]="''" [(ngModel)]="seciliTur" inputId="k-tumu"
-      (ngModelChange)="turSecildi(seciliTur)" />
-    <label for="k-tumu" class="cursor-pointer">Tümü</label>
-  </div>
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="kategori" [value]="''" [(ngModel)]="seciliTur" inputId="k-tumu"
+          (ngModelChange)="turSecildi(seciliTur)" />
+        <label for="k-tumu" class="cursor-pointer">Tümü</label>
+      </div>
 
-  @for (tur of turListesi; track tur) {
-    <div class="flex align-items-center gap-2 mb-2">
-      <p-radioButton name="kategori" [value]="tur" [(ngModel)]="seciliTur" [inputId]="'k-' + tur"
-        (ngModelChange)="turSecildi(seciliTur)" />
-      <label [for]="'k-' + tur" class="cursor-pointer">{{ turEtiketleri[tur] || tur }}</label>
+      @for (tur of turListesi; track tur) {
+      <div class="flex align-items-center gap-2 mb-2">
+        <p-radioButton name="kategori" [value]="tur" [(ngModel)]="seciliTur" [inputId]="'k-' + tur"
+          (ngModelChange)="turSecildi(seciliTur)" />
+        <label [for]="'k-' + tur" class="cursor-pointer">{{ turEtiketleri[tur] || tur }}</label>
+      </div>
+      }
     </div>
-  }
-</div>
 
+    </p-card>
   </aside>
 
+  <p-card [style]="{ width: '980px' }">
   <div class="flex flex-wrap gap-3 flex-1">
     @for (y of filtreliYemek; track $index) {
-    <p-card [header]="y[0]" [style]="{ width: '300px' }">
+    <p-card [header]="y[0]" [style]="{ width: '300px' }" [routerLink]="['/firmaSayfasi', y[5]]" styleClass="cursor-pointer transition-transform transition-duration-300 hover:scale-103 shadow-1 hover:shadow-3">
       <ng-template pTemplate="header">
         <img [src]="'assets/firmalar/' + y[5] + '.jpg'" alt="firma"
           style="width: 100%; height: 140px; object-fit: cover;" />
       </ng-template>
       <p>{{ y[3] }} / {{ y[2] }} / {{ y[1] }} </p>
       @if(y[6] == null){
-        <p>Hiç değerlendirilmemiş</p>
+      <p>Hiç değerlendirilmemiş</p>
       }@else{
       <p>{{y[6]}}/5⭐</p>
-    }
-      <p-button label="Ziyaret Et" [text]="true" [raised]="true" [routerLink]="['/firmaSayfasi', y[5]]" />
+      }
     </p-card>
     }
   </div>
 
+  </p-card>
 </div>

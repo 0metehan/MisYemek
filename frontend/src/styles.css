@@ -1,7 +1,7 @@
 @import "primeflex/primeflex.css";
 .p-sidebar {
   background-color: #46515d;
-  color: rgb(252, 251, 251);
+  color: rgb(255, 255, 255);
 }
 
 /* içeriği yukarı çek */
@@ -29,4 +29,7 @@
 }
 .p-sidebar a:hover {
   background: rgba(255, 255, 255, 0.15);  /* üzerine gelince hafif parla */
+}
+body {
+  background-color: #f3f0ed;   /* istediğin renk */
 }

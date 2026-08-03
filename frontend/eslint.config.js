@@ -17,7 +17,8 @@ module.exports = defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      "@typescript-eslint/no-explicit-any": "warn",
+      
+      "@typescript-eslint/no-explicit-any": "off",
 "@typescript-eslint/no-inferrable-types": "off",
 "@angular-eslint/prefer-inject": "off",
       "@angular-eslint/directive-selector": [

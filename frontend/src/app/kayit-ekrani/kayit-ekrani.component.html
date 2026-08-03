@@ -1,26 +1,44 @@
-<div class="flex flex-column gap-2">
-  <label class="font-bold" for="telno">Telefon No</label>
-  <input pInputText id="telno" type="text" [(ngModel)]="TelNo" name="telno" />
-</div>
-<div class="flex flex-column gap-2">
-  <label class="font-bold" for="telno">Kullanıcı Adı</label>
-  <input pInputText type="text" [(ngModel)]="username" name="telno" />
-</div>
-<div class="flex flex-column gap-2">
-  <label class="font-bold" for="telno">Şifre</label>
-  <input pInputText type="text" [(ngModel)]="password" name="telno" />
-</div>
+<div class="flex align-items-center justify-content-center min-h-screen gap-4">
 
-<div class="flex flex-column gap-2">
-  <label class="font-bold" for="rol">Rol</label>
-  <select id="rol" [(ngModel)]="kullaniciRol" name="rol">
-    <option value="" disabled>Rol seçin</option>
-    <option value="KULLANICI">Kullanıcı</option>
-    <option value="ADMIN">Firma Sahibi</option>
-    <option value="KURYE">KURYE</option>
-  </select>
+  <!-- SOL: ufak logo + karşılama -->
+  <div class="flex flex-column align-items-center gap-2">
+    <img src="assets/foto/2.jpg" alt="MisYemek" style="width: 100px; height: auto;" />
+    <div class="text-2xl font-bold">Aramıza Katıl</div>
+  </div>
+
+  <!-- SAĞ: kayıt kartı -->
+  <p-card [style]="{ width: '260px' }">
+    <div class="flex flex-column gap-3">
+
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="telno">Telefon No</label>
+        <input pInputText id="telno" type="text" [(ngModel)]="TelNo" name="telno" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="username">Kullanıcı Adı</label>
+        <input pInputText id="username" type="text" [(ngModel)]="username" name="username" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="password">Şifre</label>
+        <input pInputText id="password" type="password" [(ngModel)]="password" name="password" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label class="font-bold" for="rol">Rol</label>
+        <select id="rol" [(ngModel)]="kullaniciRol" name="rol">
+          <option value="" disabled>Rol seçin</option>
+          <option value="KULLANICI">Kullanıcı</option>
+          <option value="ADMIN">Firma Sahibi</option>
+          <option value="KURYE">KURYE</option>
+        </select>
+      </div>
+
+      <p-button label="Kayıt Ol" icon="pi pi-user-plus" (onClick)="kullaniciEkle()" />
+      <p-button label="Zaten Hesabınız Var?" icon="pi pi-user" [routerLink]="['/login']" />
+      <p>{{ message }}</p>
+    </div>
+  </p-card>
+
 </div>
-
-<p-button label="Kayıt Ol" icon="pi pi-user-plus" (onClick)="kullaniciEkle()" />
-
-    <p>{{ message }}</p>

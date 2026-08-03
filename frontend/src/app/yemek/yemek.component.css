@@ -1,0 +1,8 @@
+.kutu {
+  border: 3px solid #e0e0e0;   /* çerçeve çizgisi */
+  border-radius: 16px;         /* yuvarlak köşeler */
+  padding: 1.5rem;             /* içerik ile çerçeve arası boşluk */
+  background: #ffffff;         /* arka plan (opak dursun) */
+
+  
+}

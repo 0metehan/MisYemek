@@ -109,4 +109,13 @@ public interface SiparisRepository extends JpaRepository<Siparis,Long>{
             "AND s.siparisDurumu != com.example.misyemek.Enum.SiparisDurumu.IPTAL")
     Double yildizSay(@Param("firmaId") Long firmaId);
 
+    @Query("SELECT s.siparisId, u.urun, s.adet, s.siparisDurumu, s.grupNo, f.firmaId, f.firmaAd, s.yildizSayisi " +
+            "FROM Siparis s " +
+            "JOIN s.firmaUrun fu " +
+            "JOIN fu.urunler u " +
+            "JOIN fu.firma f " +
+            "WHERE s.kullaniciId = :kullaniciId " +
+            "AND s.siparisDurumu != com.example.misyemek.Enum.SiparisDurumu.SEPETTE " +
+            "ORDER BY s.grupNo DESC")
+    List<Object[]> siparisTakip(@Param("kullaniciId") Long kullaniciId);
 }

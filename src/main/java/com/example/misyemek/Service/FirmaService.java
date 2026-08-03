@@ -104,4 +104,7 @@ public class FirmaService {
         }
         repository.deleteById(firmaId);
     }
+    public List<Object[]> yildizaGoreSirala(Long kullaniciId){
+        return repository.yildizPuan(kullaniciId);
+    }
 }

@@ -1,0 +1,37 @@
+<div class="relative">
+
+    <p-button icon="pi pi-bell" [text]="true" (onClick)="panelAcKapa()" />
+    @if(bildirimler.length > 0){
+    <span class="absolute border-circle flex align-items-center justify-content-center" style="top: 0; right: 0; width: 1.2rem; height: 1.2rem;
+               background: #ef4444; color: #ffffff; font-size: 0.7rem; font-weight: 600;">
+        {{ bildirimler.length }}
+    </span>
+    }
+
+    @if(panelDurum){
+    <div class="absolute shadow-3 border-round p-2 flex flex-column gap-1 mt-1" style="right: 0; min-width: 20rem; max-height: 24rem; overflow-y: auto; z-index: 1000;
+                background: var(--surface-card); border: 1px solid var(--surface-border);">
+
+        <div class="font-bold px-2 py-1">Bildirimler</div>
+
+        @for(b of bildirimler; track b.bildirimId){
+        <div class="flex align-items-start justify-content-between gap-2 p-2 border-round" style="border-bottom: 1px solid var(--surface-border); ">
+            <div class="flex-1">
+                <div class="text-sm">{{ b.bildirimMetni }}</div>
+                <div class="text-xs text-color-secondary mt-1">
+                    {{ b.bildirimTarih | date:'dd.MM.yyyy HH:mm' }}
+                </div>
+            </div>
+            <p-button icon="pi pi-trash" severity="danger" [text]="true" [rounded]="true"
+                (onClick)="bildirimSil(b.bildirimId)" />
+        </div>
+        }
+
+        @if(bildirimler.length === 0){
+        <div class="text-center text-color-secondary p-3">Bildiriminiz yok</div>
+        }
+
+    </div>
+    }
+
+</div>

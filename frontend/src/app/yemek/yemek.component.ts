@@ -6,8 +6,6 @@ import { KullaniciService } from '../Service/kullanici.service';
 import { FirmaUrunService } from '../Service/firma-urun.service';
 import { FirmaService } from '../Service/firma.service';
 import { UrunService } from '../Service/urun.service';
-import { SiparisService } from '../Service/siparis.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-yemek',
@@ -22,9 +20,7 @@ export class YemekComponent implements OnInit {
   private firmaUrunService = inject(FirmaUrunService);
   private firmaService = inject(FirmaService);
   private urunService = inject(UrunService);
-  private siparisService = inject(SiparisService);
-  private route = inject(ActivatedRoute);
- 
+  
   yemek: any[] = [];
   hesap: any = null;
   secim: string = "tumu";
@@ -36,7 +32,7 @@ export class YemekComponent implements OnInit {
   turListesi: any[] = [];
   seciliTur: string ='';
   turAdDuzeltme: any[] = [];
-  yildiz: any[]=[];
+ 
 
   ngOnInit() {
     this.EnYakinAdres();
@@ -92,7 +88,7 @@ export class YemekComponent implements OnInit {
       this.EnYakinAdres();
     } else {
       this.urunFirmalari();
-    }
+    }  
   }
 
   firmaGetir() {
@@ -145,5 +141,7 @@ turEtiketleri: { [key: string]: string } = {
   MEZE: 'Meze',
 }
 
-
+yildizaGoreSirala(){
+  this.firmaService.yildizaGoreSirala().subscribe(data => this.filtreliYemek = data)
+}
 }

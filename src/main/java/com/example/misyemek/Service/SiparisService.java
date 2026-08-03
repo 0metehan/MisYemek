@@ -15,10 +15,12 @@ import static com.example.misyemek.Enum.SiparisDurumu.*;
 
 @Service
 public class SiparisService {
+    private final BildirimService bildirimService;
     private final SiparisRepository repository;
     private final FirmaRepository firmaRepository;
 
-    public SiparisService(SiparisRepository repository, FirmaRepository firmaRepository) {
+    public SiparisService(BildirimService bildirimService, SiparisRepository repository, FirmaRepository firmaRepository) {
+        this.bildirimService = bildirimService;
         this.repository = repository;
         this.firmaRepository = firmaRepository;
     }
@@ -35,9 +37,8 @@ public class SiparisService {
         return  repository.firmaIdSiparisGetir(firmaId);
     }
 
-    public List<Siparis> siparisGetir(Long kullaniciId) {
-        return repository.findByKullaniciId(kullaniciId);
-
+    public List<Object[]> siparisTakip(Long kullaniciId) {
+        return repository.siparisTakip(kullaniciId);
     }
 
     public void siparisSil(Long siparisId) {
@@ -73,7 +74,8 @@ public class SiparisService {
     public Siparis sepetOnayla(Long siparisId){
         Siparis siparisler = repository.findById(siparisId)
                 .orElseThrow(() -> new RuntimeException("kullanıcı ıd bulunamadı") );
-            siparisler.setSiparisDurumu(SiparisDurumu.YOLDA);
+        siparisler.setSiparisDurumu(SiparisDurumu.YOLDA);
+        bildirimService.bildirimEkle(siparisler.getKullaniciId() ,"siparişiniz yolda: "+ siparisler.getFirmaUrun().getUrunler().getUrun() + " x" +siparisler.getAdet());
         return repository.save(siparisler);
     }
 
@@ -81,6 +83,7 @@ public class SiparisService {
     Siparis siparisler =repository.findById(kullaniciId)
                     .orElseThrow(()-> new RuntimeException("kullanici bulunamadı"));
     siparisler.setSiparisDurumu(SiparisDurumu.IPTAL);
+    bildirimService.bildirimEkle(siparisler.getKullaniciId(), "Siparişiniz " + siparisler.getFirmaUrun().getFirma().getFirmaAd()+" firması tarafından reddedildi: "+ siparisler.getFirmaUrun().getUrunler().getUrun() +" x" +siparisler.getAdet());
     return repository.save(siparisler);
     }
 
@@ -89,11 +92,12 @@ public class SiparisService {
     }
 
     @Transactional
-    public List<Siparis> kuryeSiparisTeslimEdildi(int grupNo , Long firmaId){
+    public List<Siparis> kuryeSiparisTeslimEdildi(int grupNo , Long firmaId ){
         List<Siparis> siparisler = repository.findByGrupNoAndFirmaUrun_FirmaId(grupNo ,firmaId);
     for (Siparis s : siparisler) {
         s.setSiparisDurumu(SiparisDurumu.TESLIM_EDILDI);
     }
+        bildirimService.bildirimEkle(siparisler.get(0).getKullaniciId() , "siparişiniz teslim edildi");
         return repository.saveAll(siparisler);
     }
 
@@ -102,6 +106,7 @@ public class SiparisService {
         for (Siparis s : siparis) {
             s.setSiparisDurumu(SiparisDurumu.IPTAL);
         }
+        bildirimService.bildirimEkle(siparis.get(0).getKullaniciId() , "Sipariş Kurye Tarafından Reddedildi");
         return repository.saveAll(siparis);
     }
 
@@ -124,16 +129,16 @@ public class SiparisService {
     @Transactional
     public Siparis yildizEkle(Long firmaId, int grupNo, int yildizSayisi){
         List<Siparis> siparisler = repository.findByGrupNoAndFirmaUrun_FirmaId(grupNo, firmaId);
-
+        Firma firma = firmaRepository.findById(firmaId)
+                .orElseThrow(()-> new RuntimeException("firma bulunamadı"));
         if (siparisler.isEmpty()) {
             throw new RuntimeException("sipariş bulunamadı");
         }
+
         Siparis ilk = siparisler.get(0);
         ilk.setYildizSayisi(yildizSayisi);
         repository.save(ilk);
         Double ortalama =repository.yildizSay(firmaId);
-        Firma firma = firmaRepository.findById(firmaId)
-                .orElseThrow(()-> new RuntimeException("firma bulunamadı"));
         firma.setPuanOrtalama(ortalama);
         return ilk;
     }

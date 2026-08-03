@@ -4,11 +4,12 @@ import { SHARED_IMPORTS } from './shared/shared-imports'
 import { FirmaSahibiService } from './Service/firma-sahibi.service';
 import { AuthService } from './Service/auth.service';
 import { KullaniciService } from './Service/kullanici.service';
+import { BildirimComponent } from './bildirim/bildirim.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [SHARED_IMPORTS],
+  imports: [SHARED_IMPORTS ,BildirimComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 
@@ -21,6 +22,7 @@ export class AppComponent {
   private authService = inject(AuthService);
   private firmaSahibiService = inject(FirmaSahibiService);
   private kullaniciService = inject(KullaniciService);
+  
 
   firmaMenuAcik = false;
   firmaSahip: any = null;

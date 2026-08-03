@@ -1,8 +1,8 @@
 @if (router.url !== '/login'&& router.url !== '/KayitOl') {
 
-<nav class="flex align-items-center gap-2 px-4 py-3 sticky top-0 z-5 surface-card shadow-2">
+<nav class="flex align-items-center gap-2 px-4 py-3 sticky top-0 z-5 surface-card shadow-3">
   <span class="font-bold text-xl mr-3 flex align-items-center gap-2">
-    <img src="assets/foto/2.png" alt="MisYemek" class="h-2rem w-auto" />
+    <img src="assets/foto/2.jpg" alt="MisYemek" class="h-2rem w-auto" />
     MisYemek
   </span>
 
@@ -53,6 +53,7 @@
   }
 </div>
 }
+<app-bildirim />
     <p-button routerLink="/hesap" label="Hesap" icon="pi pi-user" [text]="true" />
     <p-button (onClick)="logout()" label="Çıkış Yap" icon="pi pi-sign-out" severity="danger" [text]="true" />
   </div>

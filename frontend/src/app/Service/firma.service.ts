@@ -17,4 +17,7 @@ export class FirmaService extends BaseService {
   firmaIdAra(firmaId: number | string): Observable<any>{
     return this.get<any>(`${firmaId}`)
   }
+  yildizaGoreSirala(): Observable<any[]> {
+    return this.get<any[]>(`YildizaGoreSirala/${this.kullaniciId}`);
+  }
 }

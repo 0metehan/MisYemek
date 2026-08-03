@@ -56,4 +56,5 @@ public interface AdresRepository extends JpaRepository<Adres, Long> {
             "WHEN ka.ilce = fa.ilce THEN 2 " +
             "ELSE 3 END, f.firma_adi ", nativeQuery = true)
     List<Object[]> urunListele(@Param("kullaniciId") Long kullaniciId , @Param("urunId") Long urunId);
+
 }

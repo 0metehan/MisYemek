@@ -29,9 +29,9 @@ public class SiparisController {
         service.siparisSil(siparisId);
     }
 
-    @GetMapping("/{kullaniciId}")
-    public List<Siparis> siparisGetir(@PathVariable Long kullaniciId) {
-        return service.siparisGetir(kullaniciId);
+    @GetMapping("/Takip/{kullaniciId}")
+    public List<Object[]> siparisTakip(@PathVariable Long kullaniciId) {
+        return service.siparisTakip(kullaniciId);
     }
 
     @PostMapping("/Kaydet")

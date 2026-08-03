@@ -51,8 +51,8 @@ import { BaseService } from '../core/services/base.service';
   } 
 
   sepetTakip(): Observable<any[]>{
-    return this.get<any[]>(`${this.kullaniciId}`)
-  }
+  return this.get<any[]>(`Takip/${this.kullaniciId}`)
+}
 
   sepetTakipFirma(firmaId: number): Observable<any[]>{
     return this.get<any[]>(`Firma/SiparisTakip/${firmaId}`)
